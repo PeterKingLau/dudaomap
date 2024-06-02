@@ -1,0 +1,278 @@
+body {
+  font-size: 16px;
+}
+@keyframes animated-border {
+  0% {
+    box-shadow: 0 0 0 0 rgba(1, 236, 12, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgba(1, 236, 12, 0);
+  }
+}
+
+@keyframes animated-border-red {
+  0% {
+    box-shadow: 0 0 0 0 rgba(216, 30, 6, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgba(216, 30, 6, 0);
+  }
+}
+@keyframes animated-border-lv {
+  0% {
+    box-shadow: 0 0 0 0 rgba(18, 150, 219, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgba(18, 150, 219, 0);
+  }
+}
+@keyframes animated-border-yellow {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 163, 92, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgba(255, 163, 92, 0);
+  }
+}
+@keyframes animated-border-ls {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 0, 242, 0.4);
+  }
+  100% {
+    box-shadow: 0 0 0 10px rgba(0, 0, 242, 0);
+  }
+}
+
+@keyframes upDown {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+/**/
+.el-dialog {
+  display: flex;
+  flex-direction: column;
+  margin: 0 !important;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.el-dialog .el-dialog__body {
+  flex: 1;
+  overflow: auto;
+}
+
+html,
+body,
+#app,
+.mapContent {
+  height: 100%;
+}
+
+.mapLeftHeight {
+  height: 100%;
+}
+.bm-view {
+  width: 100%;
+  height: 100%;
+}
+.labelW {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+}
+.labelW:hover > span {
+  color: #333;
+}
+.backMap {
+  text-align: center;
+  padding: 10px 0;
+}
+.backMap > button {
+  border: none;
+  outline: none;
+  background: #409eff;
+  height: 30px;
+  width: 100px;
+  color: #fff;
+  border-radius: 5px;
+}
+.xxMes {
+  margin: 10px 0 0 0;
+}
+.backMap > button:hover {
+  opacity: 0.8;
+}
+
+.fixedBottom {
+  position: fixed;
+  bottom: 50px;
+  left: 0;
+  right: 0;
+  height: 50px;
+  z-index: 100;
+}
+.fixedBottom > ul {
+  display: flex;
+  justify-content: center;
+}
+.fixedBottom > ul > li {
+  --bRadius: 10px;
+  height: 50px;
+  line-height: 50px;
+  margin: 0 2%;
+  color: #fff;
+  border-radius: 10px;
+  width: 200px;
+}
+.fixedBottom > ul > li > div {
+  position: relative;
+  text-align: center;
+  font-size: 14px;
+  border: 2px solid rgb(179, 191, 231);
+  border-radius: var(--bRadius);
+  transition: all 0.3s;
+  background: rgba(28, 156, 246, 0.7);
+}
+
+.fixedBottom > ul > li > div::before,
+.fixedBottom > ul > li > div::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 2px solid rgb(93, 183, 246);
+  transition: all 0.5s;
+  border-radius: var(--bRadius);
+  animation: clippath 3s infinite linear;
+}
+.fixedBottom > ul > li > div::after {
+  animation: clippath 3s infinite -1.5s linear;
+}
+@keyframes clippath {
+  0%,
+  100% {
+    clip-path: inset(0 0 98% 0);
+  }
+  25% {
+    clip-path: inset(0 98% 0 0);
+  }
+  50% {
+    clip-path: inset(98% 0 0 0);
+  }
+  75% {
+    clip-path: inset(0 0 0 98%);
+  }
+}
+.fixedBottom > ul > li > div:hover {
+  background: rgb(247, 93, 0);
+  cursor: pointer;
+}
+.fixedBottom > ul > li > div:hover::before,
+.fixedBottom > ul > li > div:hover::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 2px solid rgb(247, 93, 0);
+  transition: all 0.5s;
+  border-radius: var(--bRadius);
+  animation: clippath 3s infinite linear;
+  cursor: pointer;
+}
+.fixedBottom > ul > li > div:hover::after {
+  animation: clippath 3s infinite -1.5s linear;
+}
+
+.fixedBottom > ul > li > div.active {
+  background: rgb(247, 93, 0);
+}
+.fixedBottom > ul > li > div.active::before,
+.fixedBottom > ul > li > div.active::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  right: -5px;
+  bottom: -5px;
+  border: 2px solid rgb(247, 93, 0);
+  transition: all 0.5s;
+  border-radius: var(--bRadius);
+  animation: clippath 3s infinite linear;
+  cursor: pointer;
+}
+
+.fixedBottom > ul > li > div.active::after {
+  animation: clippath 3s infinite -1.5s linear;
+}
+
+.searchDdy {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.searchDdy > div {
+  margin-right: 10px;
+}
+.searchDdy > div .el-date-editor.el-input {
+  /* width: 100% !important; */
+}
+
+.searchDdy > .el-select > .el-input {
+  width: 15rem;
+}
+
+.el-range-editor--small .el-range-input {
+  background: #fff;
+}
+.titleDate {
+  text-align: center;
+  font-size: 22px;
+  padding: 0 0 20px 0;
+}
+.titleDate > span {
+  color: #f00;
+  margin: 0 10px;
+}
+.excelTitle {
+  text-align: center;
+  font-size: 18px;
+  margin: 0 0 50px 0;
+}
+.excelTitle > span {
+  color: #18c79c;
+  margin: 0 10px;
+}
+.excelFooter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.excelFooter .btnS_qx {
+  margin: 0 20px 0 0;
+}
+.bgColor {
+  background: none !important;
+  box-shadow: none !important;
+}
+.dcExcel {
+  margin: 0 0 20px 0;
+  text-align: right;
+  cursor: pointer;
+}
+.dcExcel span:hover {
+  color: #18c79c;
+}
