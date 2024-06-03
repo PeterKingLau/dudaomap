@@ -28,7 +28,7 @@
 
     <div class="styleCss normal" :style="{ backgroundImage: `url(${borderImg2})` }">
       <div class="styleCssTitle bzDcolor">
-        <img src="../assets/images/bzd.svg" alt=""> <span>当前不在点位督导员</span>
+        <img src="../assets/images/bzd.svg" alt=""> <span>离岗督导人员</span>
         <em v-if="absent.length" class="onlineStyle"><em style="color:#ff0000">{{ absent.length }}</em>人</em>
       </div>
 
@@ -296,7 +296,7 @@ export default {
   },
   methods: {
     getWorkerstatusStaytime(name) {//长时间不移动督导员  橙色
-      console.log(this.location)
+      
       workerstatusStaytime({ start: moment(new Date()).format('YYYY-MM-DD'), disname: name }).then(res => {
      
           this.longTime = res.map((item, index) => {
@@ -312,7 +312,7 @@ export default {
               }
             }
           }).filter(item => item)
-          console.log(this.longTime)
+         
           this.longTime.map(item => {
             //创建长时间不移动督导员的坐标点
             let pt = new BMapGL.Point(item.lng, item.lat),
@@ -453,7 +453,7 @@ window.longtimePoint(item);
         }
       });
 
-      console.log(this.realTime, 'this.realTime')
+   //   console.log(this.realTime, 'this.realTime')
 
 
     },

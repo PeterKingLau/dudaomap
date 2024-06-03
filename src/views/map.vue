@@ -121,10 +121,18 @@
 import mapRight from "../views/mapRight.vue";
 import mapLeft from "../views/mapLeft.vue";
 import axios from "@/utils/request";
-import { point, hxdlocationFindAll, findAllToday } from "@/api/api";
+import { point, hxdlocationFindAll, findAllToday,getDeviceInfo } from "@/api/api";
 import Bus from "../utils/eventBus";
 import today from "@/utils/today";
 import { filterTime } from "@/utils/today.js";
+let mapObj = {
+          涪城: [104.679127, 31.467673],
+          总公司: [104.679127, 31.467673],
+          广汉: [104.28249, 30.97706],
+          安州: [104.56735, 31.45475],
+          南充: [106.118889, 30.781529],
+          射洪: [105.38836, 30.87113],
+        };
 export default {
   components: {
     mapRight,
@@ -211,14 +219,14 @@ export default {
       this.map = new BMapGL.Map("container");
       // 绵阳 104.679127, 31.467673
       // 广汉 104.282490, 30.977060
-      let mapObj = {
-        涪城: [104.679127, 31.467673],
-        总公司: [104.679127, 31.467673],
-        广汉: [104.28249, 30.97706],
-        南充: [106.118889, 30.781529],
-        安州: [104.56735, 31.45475],
-        射洪: [105.38836, 30.87113],
-      };
+      // let mapObj = {
+      //   涪城: [104.679127, 31.467673],
+      //   总公司: [104.679127, 31.467673],
+      //   广汉: [104.28249, 30.97706],
+      //   南充: [106.118889, 30.781529],
+      //   安州: [104.56735, 31.45475],
+      //   射洪: [105.38836, 30.87113],
+      // };
       console.log(mapObj[axios.waresofeLocation]);
       this.point = new BMapGL.Point(...mapObj[axios.waresofeLocation]); //地图中心点
       this.map.centerAndZoom(this.point, axios.waresofeLocation === "总公司" ? 5 : 15);
@@ -256,14 +264,7 @@ export default {
         this.map = new BMapGL.Map("container");
         // 绵阳 104.679127, 31.467673
         // 广汉 104.282490, 30.977060
-        let mapObj = {
-          涪城: [104.679127, 31.467673],
-          总公司: [104.679127, 31.467673],
-          广汉: [104.28249, 30.97706],
-          安州: [104.56735, 31.45475],
-          南充: [106.118889, 30.781529],
-          射洪: [105.38836, 30.87113],
-        };
+ 
         console.log(mapObj[name]);
         this.point = new BMapGL.Point(...mapObj[name]); //地图中心点
         this.map.centerAndZoom(this.point, name === "总公司" ? 5 : 15);
@@ -318,10 +319,18 @@ export default {
       this.$refs.rightMapRef.getNotInLoaction(val);
       this.$refs.rightMapRef.getWorkerstatusStaytime(val);
     },
+    pointDevice(name){
+          let str = mapObj[name][0]+','+mapObj[name][1]
+          let param = {'coordinate':str}
+          getDeviceInfo(param).then((res) => {
+            console.log(res);
+          });
+    },
     pointMap(name) {
       // 当天
       console.log(name);
       this.localtion = name ? name : axios.waresofeLocation;
+      this.pointDevice(name)
       point({ disname: name }).then((res) => {
         let vals = Object.values(res); //对象转数组
         if (this.localtion !== "总公司") {
@@ -336,7 +345,7 @@ export default {
           );
           console.log(vals);
         }
-        console.log(vals);
+      //  console.log(vals);
         let newValss = vals.map((item, index) => {
           return {
             adress: item.split("&")[0].split("省")[1],
