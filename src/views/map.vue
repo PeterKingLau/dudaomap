@@ -156,6 +156,10 @@ export default {
       iconLs: require("../assets/images/lvs.png"),
 
       iconLsYellow: require("../assets/images/lvs.png"),
+      iconDevB: require("../assets/images/s_blue.png"),
+      iconDevR: require("../assets/images/s_red.png"),
+      iconDevG: require("../assets/images/s_grey.png"),
+  
       realTime: [], //实时
       newVals: [], //正常
       newVals_wyd: [], //未移动
@@ -323,12 +327,42 @@ export default {
           let str = mapObj[name][0]+','+mapObj[name][1]
           let param = {'coordinate':str}
           getDeviceInfo(param).then((res) => {
-            console.log(res);
+               if(res.code == 200){
+                  console.log('res',res.data)
+                  res.data.map((item)=>{
+                      let pt = new BMapGL.Point(item.lng,item.lat)
+                      let icon ;
+                      if(item.style = 0){
+                        icon = this.iconDevB;
+                      }else if (item.style = 1)
+                      {
+                        icon = this.iconDevG;
+                      }else if (item.style = 2)
+                      {
+                        icon = this.iconDevR;
+                      }
+                      let i = new icon(icon,new Size(23,23),{
+                        anchor:new BMapGL.Size(10,10),
+                        imageOffset:new BMapGL.Size(0,0)
+                      })
+                      let m = new BMapGL.Marker(pt,{icon:i})
+                      m.addEventListener('click', function () {
+                             this.map.removeOverlay(m)
+                      })
+                      this.map.addOverlay(m)
+                  })
+                
+                 
+               }
           });
     },
     pointMap(name) {
       // 当天
       console.log(name);
+      if(this.map != undefined && this.map != null && this.map != ''
+      ){
+      this.removeMarker();
+      }
       this.localtion = name ? name : axios.waresofeLocation;
       this.pointDevice(name)
       point({ disname: name }).then((res) => {
@@ -435,7 +469,26 @@ export default {
       let track = this.realTime;
       return; //暂时隐藏20230419
     },
-    hxdlocationFindAll(item) {
+
+    removeMarker() {
+      //移除所有点标记
+      this.map.clearOverlays();
+    },
+
+  //   //获取用户轨迹
+  //   getUserTrack() {
+  //     let data = {
+  //       phone: this.$store.getters.getmarkerMess.phone,
+  //       dats: today(),
+  //     };
+  //     hxdlocationFindAll(data).then((res) => {
+  //       if (res.length) {
+  //         let newAssignTrack = res.map((item) => {
+      
+  //   })
+  // },
+
+    hxdlocationFindAll(item){
       return new Promise((resolve, reject) => {
         hxdlocationFindAll({ phone: item.phone, dats: today() }).then((res) => {
           if (res.length) {
