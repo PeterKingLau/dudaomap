@@ -193,6 +193,7 @@ export default {
       point: "", //点页面全局
       duPoint: "", //指定督导员点
       realtimeIco: "", //创建实时坐标图片 实时在线督导
+     
       localtion: axios.waresofeLocation,
       realOnLine: {
         nameIco: require("../assets/images/zcName.png"),
@@ -275,6 +276,11 @@ export default {
         this.map.enableScrollWheelZoom(true); //鼠标滚轮缩放
         this.realtimeIco = new BMapGL.Icon(this.iconLs, new BMapGL.Size(18, 30)); //创建实时在线坐标图片
 
+        this.map.addEventListener('tilesloaded',function(){
+          console.log('finshed')
+          alert('地图加载完成')
+        })
+
         // let navi3DCtrl = new BMapGL.NavigationControl3D();  // 添加3D控件
         // this.map.addControl(navi3DCtrl);
         // let zoomCtrl = new BMapGL.ZoomControl();  // 添加缩放控件
@@ -328,32 +334,66 @@ export default {
           let param = {'coordinate':str}
           getDeviceInfo(param).then((res) => {
                if(res.code == 200){
-                  console.log('res',res.data)
+                 
+              
+               res.data.map((item) =>{
+                let point = new BMapGL.Point(item.lnglat[0],item.lnglat[1])
+                let icon = this.iconDevB
+                if(item.style == 2)
+                {
+                  icon = this.iconDevR
+                }
+                if(item.style == 1)
+                {
+                  icon = this.iconDevG
+                }
+              
+                 let myIcon = new BMapGL.Icon(icon,new BMapGL.Size(23,23))
+                 let marker = new BMapGL.Marker(point,{icon:myIcon})
+                 marker.addEventListener('click', function (event) {
+                      
+                        console.log('click ');
+                        this.map.removeOverlay(event.target)
+                        console.log('clicked')
+                        let i = new BMapGL.Icon(this.iconDevB,new BMapGL.Size(23,23))
+                        let p = new BMapGL.Point(event.target.lng,event.target.lat)
+                        let m = new BMapGL.marker(p,{icon:i})
+                        this.map.addOverlay(m)
+
+                        })
+                this.map.addOverlay(marker)
+                })
+
+
+                /**
                   res.data.map((item)=>{
-                      let pt = new BMapGL.Point(item.lng,item.lat)
-                      let icon ;
-                      if(item.style = 0){
+                        //   console.log('point',item.lnglat)
+                           if(!(item.lnglat[0] == 0 && item.lnglat[1] == 0))
+                           {
+                               
+                           
+                      let pt = new BMapGL.Point(item.lnglat[0],item.lnglat[1])
+                       let icon;
+                      if(item.style == 0){
                         icon = this.iconDevB;
-                      }else if (item.style = 1)
+                      }else if (item.style == 1)
                       {
                         icon = this.iconDevG;
-                      }else if (item.style = 2)
+                      }else if (item.style == 2)
                       {
                         icon = this.iconDevR;
                       }
-                      let i = new icon(icon,new Size(23,23),{
-                        anchor:new BMapGL.Size(10,10),
-                        imageOffset:new BMapGL.Size(0,0)
-                      })
-                      let m = new BMapGL.Marker(pt,{icon:i})
+                     let  deviceIco = new BMapGL.Icon(this.icon,new BMapGL.Size(23,23))
+                      let m = new BMapGL.Marker(pt,{icon:deviceIco})
                       m.addEventListener('click', function () {
                              this.map.removeOverlay(m)
                       })
                       this.map.addOverlay(m)
+                    }
                   })
-                
-                 
-               }
+               
+                  */
+              }
           });
     },
     pointMap(name) {
