@@ -1,6 +1,6 @@
 import axios from 'axios';
 //设置axios
-    let waresofeLocation = '总公司' //打包区域端
+    let waresofeLocation = '涪城' //打包区域端
 const service=axios.create({
     timeout:1000*6000,
     baseURL:process.env.BASE_URL_HTTPS

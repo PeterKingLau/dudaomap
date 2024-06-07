@@ -2,7 +2,7 @@
   <div class="mapContent">
     <!--头部-->
     <div class="headerTitle" :style="{ backgroundImage: `url(${bgImg})` }">
-      <div>工作人员和督导员在线管理</div>
+      <div>华信达调度指挥中心</div>
       <span class="timeAnim1"></span>
       <span class="timeAnim2"></span>
       <span class="timeAnim3"></span>
@@ -247,8 +247,9 @@ export default {
     //循环创建实时在线督导员的点
     this.timer = setInterval(() => {
       //每隔5分鐘刷新一次接口
-      this.pointMap(this.localtion);
       this.map.clearOverlays();
+      this.pointMap(this.localtion);
+     
     }, 300000);
     this.$once("hook:beforeDestroy", () => {
       clearInterval(this.timer);
@@ -272,13 +273,14 @@ export default {
  
         console.log(mapObj[name]);
         this.point = new BMapGL.Point(...mapObj[name]); //地图中心点
-        this.map.centerAndZoom(this.point, name === "总公司" ? 5 : 15);
+       // this.map.centerAndZoom(this.point, name === "总公司" ? 5 : 15);
+       this.map.centerAndZoom(this.point, 14);
         this.map.enableScrollWheelZoom(true); //鼠标滚轮缩放
         this.realtimeIco = new BMapGL.Icon(this.iconLs, new BMapGL.Size(18, 30)); //创建实时在线坐标图片
 
         this.map.addEventListener('tilesloaded',function(){
           console.log('finshed')
-          alert('地图加载完成')
+       
         })
 
         // let navi3DCtrl = new BMapGL.NavigationControl3D();  // 添加3D控件
@@ -334,7 +336,7 @@ export default {
           let param = {'coordinate':str}
           getDeviceInfo(param).then((res) => {
                if(res.code == 200){
-                 
+                
               
                res.data.map((item) =>{
                 let point = new BMapGL.Point(item.lnglat[0],item.lnglat[1])
@@ -349,19 +351,10 @@ export default {
                 }
               
                  let myIcon = new BMapGL.Icon(icon,new BMapGL.Size(23,23))
-                 let marker = new BMapGL.Marker(point,{icon:myIcon})
-                 marker.addEventListener('click', function (event) {
-                      
-                        console.log('click ');
-                        this.map.removeOverlay(event.target)
-                        console.log('clicked')
-                        let i = new BMapGL.Icon(this.iconDevB,new BMapGL.Size(23,23))
-                        let p = new BMapGL.Point(event.target.lng,event.target.lat)
-                        let m = new BMapGL.marker(p,{icon:i})
-                        this.map.addOverlay(m)
-
-                        })
-                this.map.addOverlay(marker)
+                 let marker1 = new BMapGL.Marker(point,{icon:myIcon})
+                 marker1.id = item.id
+                 marker1.addEventListener('click', this.deleteMarker)
+                this.map.addOverlay(marker1)
                 })
 
 
@@ -396,6 +389,20 @@ export default {
               }
           });
     },
+    deleteMarker(e){
+       
+        let ic = new BMapGL.Icon(this.iconDevB,new BMapGL.Size(23,23))
+       
+        
+        // this.map.removeOverlay(e.target)
+        var allOverlay = this.map.getOverlays()
+            for(var i = 0;i < allOverlay.length;i++){
+                if(allOverlay[i].id == e.target.id){
+                    allOverlay[i].setIcon(ic)
+                    break;
+                }
+            }
+      },
     pointMap(name) {
       // 当天
       console.log(name);

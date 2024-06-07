@@ -357,7 +357,7 @@ window.longtimePoint(item);
       })
     },
     getNotInLoaction(name) {//红色
-      console.log(this.localtion)
+      console.log('getNotInLoaction',this.localtion)
       notInLoaction({ start: moment(new Date()).format('YYYY-MM-DD'), disname: this.localtion }).then(res => {
 
         if (Object.keys(res).length) {

@@ -71,6 +71,10 @@
       </div> -->
 
     </div><!--/styleCss-->
+
+    
+
+
     <!--当前不在点位督导员-->
     <el-dialog title="当前不在点位督导员" :visible.sync="bzdProup" width="500px" center :modal-append-to-body='false'>
       <div class="superintendent">
@@ -347,18 +351,18 @@ export default {
       ],
       selectType: undefined,
       selectTypes: [
-        {
-          value: '超15分钟离岗人员',
-          label: '超15分钟离岗人员'
-        },
+        // {
+        //   value: '超15分钟离岗人员',
+        //   label: '超15分钟离岗人员'
+        // },
         {
           value: '查询当日正常在岗时间',
           label: '查询当日正常在岗时间'
         },
-        {
-          value: '当日不在点位督导员',
-          label: '当日不在点位督导员'
-        },
+        // {
+        //   value: '当日不在点位督导员',
+        //   label: '当日不在点位督导员'
+        // },
         {
           value: '当日长时间不移动督导员',
           label: '当日长时间不移动督导员'
