@@ -2,11 +2,11 @@
   <div class="mapHeight">
     <!---按日期查询超15分钟离岗人员-->
     <div class="styleCss normal">
-      <div class="styleCssTitle lvs" v-if="axiosDom.waresofeLocation === '总公司'">
+      <div class="styleCssTitle lvs" >
         <img src="../assets/images/ligang.svg" alt="" style=" height:20px; width:20px"> <span>{{
           '监控区域' }}</span>
       </div>
-      <div class="searchDdy" v-if="axiosDom.waresofeLocation === '总公司'">
+      <div class="searchDdy">
         <div>
           <el-select v-model="disnameValue" @change="$emit('changeDisname', disnameValue)" clearable size="small"
             placeholder="请选择区域">
@@ -72,7 +72,73 @@
 
     </div><!--/styleCss-->
 
+    <div class="styleCss normal" :style="{ backgroundImage: `url(${borderImg3})` }">
+      <div class="styleCssTitle">
+         <img src="../assets/images/zc.svg" alt=""> <span>总设备数量</span>
+         <em class="onlineStyle"><em style="color: #4d4d4d;">{{deviceCount}}</em>台</em>
+       
+        
+      </div>
+    </div>
+
+
+    <div class="styleCss normal" :style="{ backgroundImage: `url(${borderImg})` }">
+      <div class="styleCssTitle">
+         <img src="../assets/images/zc.svg" alt=""> <span>正常运行设备</span>
+         <em class="onlineStyle"><em style="color: #4d4d4d;">{{deviceList.length}}</em>台</em>
+       
+        
+      </div>
+      <div class="zcNormal zcline ">
+        <div class="zcNormaltitle">
+          <span>设备名称</span>
+         
+        </div>
+
+        <vue-seamless-scroll :data="deviceList" :class-option="classOption" class="seamless-warp">
+          <ul class="zcUl1" v-if="deviceList.length">
+            <li v-for="(item, index) in deviceList" :key="index * 0.1">
+              <span>{{  item.name }}</span>
+             
+            </li>
+          </ul>
+
+          <div v-else class="zwData">暂无</div>
+        </vue-seamless-scroll>
+
+      </div>  
+
+    </div>
+
+
+
     
+    <div class="styleCss normal" :style="{ backgroundImage: `url(${borderImg})` }">
+      <div class="styleCssTitle">
+         <img src="../assets/images/zc.svg" alt=""> <span>离线设备</span>
+         <em class="onlineStyle"><em style="color: #4d4d4d;">{{offlineDeviceList.length}}</em>台</em>
+      </div>
+      <div class="zcNormal zcline ">
+        <div class="zcNormaltitle">
+          <span>离线设备名称</span>
+         
+        </div>
+
+        <vue-seamless-scroll :data="offlineDeviceList" :class-option="classOption" class="seamless-warp">
+          <ul class="zcUl1" v-if="offlineDeviceList.length">
+            <li v-for="(item, index) in offlineDeviceList" :key="index * 0.1">
+              <span>{{  item.name }}</span>
+             
+            </li>
+          </ul>
+
+          <div v-else class="zwData">暂无</div>
+        </vue-seamless-scroll>
+
+      </div>  
+
+    </div>
+
 
 
     <!--当前不在点位督导员-->
@@ -262,7 +328,7 @@
 </template>
 <script>
 import moment from 'moment'
-import { notInLoaction, workerstatusStaytime, hxduserfindAll, hxderrorFindAllByDate, filterTime, hxderrorFindAllToday2 } from '@/api/api'
+import { notInLoaction, workerstatusStaytime, hxduserfindAll,getDeviceInfo, hxderrorFindAllByDate, filterTime, hxderrorFindAllToday2 } from '@/api/api'
 import axios from '@/utils/request'
 import vueSeamlessScroll from "vue-seamless-scroll";
 import animCss from '../components/animCss/index.vue'
@@ -273,6 +339,10 @@ export default {
   },
   data() {
     return {
+     
+      deviceList: [],
+      offlineDeviceList:[],
+      deviceCount:0,
       axiosDom: axios,
       disnameValue: undefined,
       pickerOptions: {
@@ -315,6 +385,7 @@ export default {
       noPointShow: false,//不在点位弹出层显示
       borderImg: require('../assets/images/border4.png'),
       borderImg2: require('../assets/images/border5.png'),
+      borderImg3: require('../assets/images/border2.png'),
       absent: [],//不在点位
       longTime: [],//长时间不一移动的
       timer: null,
@@ -401,6 +472,7 @@ export default {
   },
   mounted() {
     this.getNotInLoaction(this.localtion)
+    this.getDevice()
     // this.getWorkerstatusStaytime(this.localtion)
     this.timer = setInterval(() => {//每隔5分鐘刷新一次接口
       this.getNotInLoaction(this.localtion)
@@ -451,6 +523,23 @@ export default {
       }
 
     },
+
+    getDevice(){
+          
+          let data = {coordinate:"104.679127, 31.467673"}
+         getDeviceInfo(data).then((res) =>{
+              this.deviceList = res.data.filter(item=>{
+                  return item.style == 0
+              })
+              this.offlineDeviceList = res.data.filter(item=>{
+                  return item.style == 1
+              })
+              this.deviceCount = res.data.length
+
+          })
+   
+    },
+
 
     async startDownload() { // 导出excel按钮 超出15分钟离岗人员
       for (var i = 0; i < this.beyondLists.length; i++) {//添加序号
@@ -852,4 +941,22 @@ export default {
 }
 </script>
 
-<style  lang='scss'></style>
+<style  lang='scss'>
+  .zcUl1 {
+      >li {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        height: 1.8rem;
+        border-top: 1px solid #efefef;
+
+        >span {
+          font-size: 0.8rem;
+          display: inline-block;
+          width: 100%;
+          text-align: left;
+        }
+      }
+    }
+
+</style>

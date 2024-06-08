@@ -24,16 +24,16 @@ export function point(data){
         
 }
 
-export function workerstatusNormal(data){//正常在线的督导员
-    return axios.post(url+'hxduser/workerstatus_normal',data)
+export async function workerstatusNormal(data){//正常在线的督导员
+    return await axios.post(url+'hxduser/workerstatus_normal',data)
 }
 
 
-export function workerstatusDeny(data){//未上线的督导员
-    return axios.post(url+'hxduser/workerstatus_deny',data)
+export async function workerstatusDeny(data){//未上线的督导员
+    return await axios.post(url+'hxduser/workerstatus_deny',data)
 }
-export function workerstatusStay(data){//长时间未移动的督导员
-    return axios.post(url+'hxduser/workerstatus_stay',data)
+export async function workerstatusStay(data){//长时间未移动的督导员
+    return await axios.post(url+'hxduser/workerstatus_stay',data)
 }
 export function hxdlocationFindAll(data){//获取所指定员工的定位信息
     return axios.post(url+'hxdlocation/findAll',data)

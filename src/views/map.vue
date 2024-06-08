@@ -55,6 +55,23 @@
       </div>
     </el-dialog>
 
+
+    <el-dialog title="设备状态" :visible.sync="centerDeviceVisible" width="500px" custom-class="zcLine" center>
+      <div class="superintendent">
+        <p>
+          <span><img src="../assets/images/zcName.png" alt="" /></span>{{ proupDe.name }}
+        </p>
+        <p>
+          <span><img src="../assets/images/zcTel.png" alt="" /></span>{{ proupDe.add }}
+        </p>
+        <p>
+          <span><img src="../assets/images/zcAdress.png" alt="" /></span>{{ proupDe.stat }}
+        </p>
+     
+      </div>
+    </el-dialog>
+
+
     <el-dialog :visible.sync="centerDialogVisible_Zc" width="30%" custom-class="zcLine" center>
       <div class="superintendent">
         <p>
@@ -168,9 +185,12 @@ export default {
       centerDialogVisible: false, //点击坐标上的 显示，出现弹出层
       centerDialogVisible_Zc: false,
       centerDialogVisible_Cs: false,
+      centerDeviceVisible:false,
       proupSs: {}, //实时弹窗显示的数据
       proupZc: {}, //正常弹窗显示的数据
       proupCs: {}, //长时弹窗显示的数据
+      proupDe: {}, //设备弹窗显示的数据
+      
 
       toDayTime: today(), //当天的时间
       getCoord: [], //轨迹线
@@ -352,7 +372,7 @@ export default {
               
                  let myIcon = new BMapGL.Icon(icon,new BMapGL.Size(23,23))
                  let marker1 = new BMapGL.Marker(point,{icon:myIcon})
-                 marker1.id = item.id
+                 marker1.dd = item
                  marker1.addEventListener('click', this.deleteMarker)
                 this.map.addOverlay(marker1)
                 })
@@ -390,18 +410,27 @@ export default {
           });
     },
     deleteMarker(e){
+        console.log(e);
+        let item = e.target.dd
+      
        
-        let ic = new BMapGL.Icon(this.iconDevB,new BMapGL.Size(23,23))
-       
-        
-        // this.map.removeOverlay(e.target)
-        var allOverlay = this.map.getOverlays()
-            for(var i = 0;i < allOverlay.length;i++){
-                if(allOverlay[i].id == e.target.id){
-                    allOverlay[i].setIcon(ic)
-                    break;
-                }
-            }
+        this.proupDe.add = item.address
+        this.proupDe.name = item.name
+        let stat = ""
+        switch(item.style)
+        {
+          case 0:
+            stat = "正常"
+            break;
+          case 2:
+            stat = "故障"
+            break;
+          case 1:
+            stat = "离线"
+            break;
+        }
+        this.proupDe.stat = stat
+        this.centerDeviceVisible = true;
       },
     pointMap(name) {
       // 当天

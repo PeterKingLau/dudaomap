@@ -367,7 +367,7 @@ window.longtimePoint(item);
           }
           this.absent = vals.map((item, index) => {
             let newarr = item.split('&')
-            console.log('newarr' + newarr)
+          //  console.log('newarr' + newarr)
             return {
               distance: parseFloat(newarr[0]).toFixed(2),
               adress: newarr[1],
@@ -378,7 +378,7 @@ window.longtimePoint(item);
             }
 
           }).filter(item2 => item2)
-          console.log(this.absent)
+       //   console.log(this.absent)
           this.absent.map(item => {
             //创建当前不在点位督导员的坐标点
             console.log(item)
