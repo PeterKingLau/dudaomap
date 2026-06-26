@@ -222,17 +222,97 @@ body,
 .searchDdy {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
+  gap: 8px;
+  margin: 2px 0 10px;
 }
 .searchDdy > div {
-  margin-right: 10px;
-}
-.searchDdy > div .el-date-editor.el-input {
-  /* width: 100% !important; */
+  margin-right: 0;
 }
 
-.searchDdy > .el-select > .el-input {
-  width: 15rem;
+.searchDdy .el-select__wrapper,
+.searchDdy .el-input__wrapper {
+  min-height: 24px;
+  height: 24px;
+  padding: 0 8px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 0 0 1px rgba(64, 158, 255, 0.28) inset;
+}
+
+.searchDdy .el-select__placeholder,
+.searchDdy .el-input__inner {
+  font-size: 12px;
+  color: #4b6f9f;
+}
+
+.searchDdy .el-select__wrapper:hover,
+.searchDdy .el-input__wrapper:hover {
+  box-shadow: 0 0 0 1px rgba(64, 158, 255, 0.56) inset;
+}
+
+.searchDdy--region .el-select {
+  width: 88px;
+}
+
+.searchDdy--query .el-select {
+  flex: 1;
+  min-width: 0;
+}
+
+.searchDdy--query .el-date-editor.el-input {
+  width: 118px;
+}
+
+.searchDdy--query .el-button {
+  flex: 0 0 64px;
+  height: 24px;
+  min-height: 24px;
+  padding: 0 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.map-filter-select-popper {
+  --el-bg-color-overlay: rgba(255, 255, 255, 0.96);
+  --el-text-color-regular: #415f86;
+  --el-color-primary: #2f8cff;
+  min-width: 88px;
+  border: 1px solid rgba(64, 158, 255, 0.22);
+  border-radius: 4px;
+  box-shadow: 0 6px 18px rgba(26, 82, 142, 0.16);
+  overflow: hidden;
+}
+
+.map-filter-select-popper .el-popper__arrow {
+  display: none;
+}
+
+.map-filter-select-popper .el-select-dropdown {
+  padding: 2px 0;
+}
+
+.map-filter-select-popper .el-select-dropdown__list {
+  padding: 0;
+}
+
+.map-filter-select-popper .el-select-dropdown__item {
+  height: 30px;
+  line-height: 30px;
+  padding: 0 14px;
+  font-size: 13px;
+}
+
+.map-filter-select-popper .el-select-dropdown__item.is-hovering,
+.map-filter-select-popper .el-select-dropdown__item:hover {
+  background: rgba(47, 140, 255, 0.08);
+}
+
+.map-filter-select-popper .el-select-dropdown__item.is-selected {
+  color: #2f8cff;
+  font-weight: 600;
+  background: rgba(47, 140, 255, 0.1);
 }
 
 .el-range-editor--small .el-range-input {
@@ -272,6 +352,11 @@ body,
   margin: 0 0 20px 0;
   text-align: right;
   cursor: pointer;
+}
+.dcExcel span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
 }
 .dcExcel span:hover {
   color: #18c79c;

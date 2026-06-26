@@ -12,7 +12,7 @@
                     <span>姓名</span>
                     <span>电话号码</span>
                 </div>
-                <vue-seamless-scroll :data="realTime" :class-option="classOption" class="seamless-warp">
+                <AutoScroll :data="realTime" :class-option="classOption" class="seamless-warp">
                     <ul class="zcUl" v-if="realTime.length">
                         <li v-for="(item, index) in realTime" :key="index * 0.1">
                             <span>{{ item.name }}</span>
@@ -21,7 +21,7 @@
                     </ul>
 
                     <div v-else class="zwData">暂无正常在线的督导员</div>
-                </vue-seamless-scroll>
+                </AutoScroll>
 
             </div><!--/zcNormal-->
         </div><!--/styleCss-->
@@ -38,7 +38,7 @@
                     <span>姓名</span>
                     <span>电话号码</span>
                 </div>
-                <vue-seamless-scroll :data="normalLis" :class-option="classOption" class="seamless-warp">
+                <AutoScroll :data="normalLis" :class-option="classOption" class="seamless-warp">
                     <ul class="zcUl" v-if="normalLis.length">
                         <li v-for="(item, index) in normalLis" :key="index * 0.3">
                             <span>{{ item.name }}</span>
@@ -47,7 +47,7 @@
                     </ul>
 
                     <div v-else class="zwData">暂无正常在线的督导员</div>
-                </vue-seamless-scroll>
+                </AutoScroll>
 
             </div><!--/zcNormal-->
         </div><!--/styleCss-->
@@ -64,7 +64,7 @@
                     <span>电话号码</span>
                 </div>
 
-                <vue-seamless-scroll :data="workerstatusDeny" :class-option="classOption" class="seamless-warp">
+                <AutoScroll :data="workerstatusDeny" :class-option="classOption" class="seamless-warp">
                     <ul class="zcUl" v-if="workerstatusDeny.length">
                         <li v-for="(item, index) in workerstatusDeny" :key="index * 0.4">
                             <span>{{ item.name }}</span>
@@ -73,7 +73,7 @@
                     </ul>
 
                     <div v-else class="zwData">暂无异常督导员</div>
-                </vue-seamless-scroll>
+                </AutoScroll>
             </div><!--/zcNormal-->
         </div><!--/styleCss-->
 
@@ -88,7 +88,7 @@
                     <span>姓名</span>
                     <span>电话号码</span>
                 </div>
-                <vue-seamless-scroll :data="workerstatusStay" :class-option="classOption" class="seamless-warp">
+                <AutoScroll :data="workerstatusStay" :class-option="classOption" class="seamless-warp">
                     <ul class="zcUl" v-if="workerstatusStay.length">
                         <li v-for="(item, index) in workerstatusStay" :key="index * 0.5">
                             <span>{{ item.name }}</span>
@@ -97,7 +97,7 @@
                     </ul>
 
                     <div v-else class="zwData">暂无长时间未移动的督导员</div>
-                </vue-seamless-scroll>
+                </AutoScroll>
             </div><!--/zcNormal-->
         </div><!--/styleCss-->
     </div>
@@ -105,12 +105,8 @@
 
 <script>
 import { workerstatusNormal, workerstatusDeny, workerstatusStay, point, findAllTodayfault } from '@/api/api'
-import vueSeamlessScroll from "vue-seamless-scroll";
 import Bus from '../utils/eventBus' //兄弟间传值
 export default {
-    components: {
-        vueSeamlessScroll
-    },
     data() {
         return {
             yc: false,

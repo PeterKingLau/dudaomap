@@ -1,28 +1,16 @@
-//配置vuex持久化
-import Vue from 'vue'
-import Vuex from 'vuex'
-import createPersistedstate  from 'vuex-persistedstate'
-Vue.use(Vuex)
+import { defineStore } from 'pinia'
 
-export default new Vuex.Store({
-    state:{//存值
-        markerMess:{},//存督导员的电话号码
+export const useMarkerStore = defineStore('marker', {
+  state: () => ({
+    markerMess: {},
+  }),
+  getters: {
+    getmarkerMess: (state) => state.markerMess,
+  },
+  actions: {
+    updatemarkerMess(data) {
+      this.markerMess = data
     },
-    getters:{
-       getmarkerMess(state){//取电话号码
-          return state.markerMess
-       }
-    },
-    mutations:{
-        updatemarkerMess(state,data){ //异步调用赋值
-            state.markerMess=data
-        }
-    },
-    plugins:[
-        createPersistedstate({
-             reducer(val){
-                return val
-             }
-        })
-    ]
+  },
+  persist: true,
 })

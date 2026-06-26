@@ -264,7 +264,7 @@
                 <el-button type="primary" @click="submitForm('ruleForm')"   v-loading.fullscreen.lock="fullscreenLoading">查找</el-button>
               </el-form-item>
             </el-form>   
-            <div class="trackLine" v-show="tsTrack"> <i class="el-icon-warning-outline"  ></i> 暂无当前时间段督导员的轨迹线</div>  
+            <div class="trackLine" v-show="tsTrack"> <el-icon><Warning /></el-icon> 暂无当前时间段督导员的轨迹线</div>  
       </div><!--/superintendent-->
     </el-dialog>
 
@@ -274,6 +274,7 @@
 
 <script>
 import mapRight from "../views/mapRight.vue";
+import { Warning } from "@element-plus/icons-vue";
 import { point, hxdlocationFindAll,findAllToday } from "@/api/api";
 import Bus from "../utils/eventBus";
 import today from "@/utils/today";
@@ -281,6 +282,7 @@ import {filterTime} from '@/utils/today.js'
 export default {
   components: {
     mapRight,
+    Warning,
   },
   data() {
     const _that = this;

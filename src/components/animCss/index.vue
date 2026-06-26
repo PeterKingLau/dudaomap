@@ -1,213 +1,206 @@
 <template>
-   <div>
+  <div>
     <div id="loader" v-if="animShow">
-    <div id="dot1" class="dot"></div>
-    <div id="dot2" class="dot"></div>
-    <div id="dot3" class="dot"></div>
-    <div id="dot4" class="dot"></div>
-  </div>
-
+      <div id="dot1" class="dot"></div>
+      <div id="dot2" class="dot"></div>
+      <div id="dot3" class="dot"></div>
+      <div id="dot4" class="dot"></div>
+    </div>
 
     <div class="loaderBox">
-          <div id="loader2">
-            <div id="squircle1" class="squircle">
-            </div>
-            <div id="squircle2" class="squircle"><br />
-            </div>
-            <div id="squircle4" class="squircle">
-            </div>
-            <div id="squircle3" class="squircle"></div>
-        </div>
+      <div id="loader2">
+        <div id="squircle1" class="squircle"></div>
+        <div id="squircle2" class="squircle"><br /></div>
+        <div id="squircle4" class="squircle"></div>
+        <div id="squircle3" class="squircle"></div>
+      </div>
     </div>
- <p class="tsP">{{textLoad}}</p>
-  <div id="loader3" v-if="animShow">
-
+    <p class="tsP">{{ textLoad }}</p>
+    <div id="loader3" v-if="animShow"></div>
   </div>
-   </div>
 </template>
-<script>
-export default {
-   props:['textLoad'],
-     data(){
-        return{
-            animShow:false,
-        }
-     }
-}
+<script setup>
+defineProps({
+  textLoad: {
+    type: String,
+    default: "",
+  },
+});
+
+const animShow = false;
 </script>
 
-<style lang='scss' >
-.tsP{ padding: 10px  0 0 0; font-size: 14px; text-align: center; color:#fff;}
-.loaderBox{ width: 100px; margin: auto; }
+<style lang="scss">
+.tsP {
+  padding: 10px 0 0 0;
+  font-size: 14px;
+  text-align: center;
+  color: #fff;
+}
+.loaderBox {
+  width: 100px;
+  margin: auto;
+}
 
 #loader {
-    margin: 100px;
+  margin: 100px;
+}
+
+.dot {
+  height: 20px;
+  width: 20px;
+  border-radius: 10px;
+  display: inline-block;
+  position: relative;
+}
+
+#dot1 {
+  background: #ea4335;
+  animation-name: dotloader;
+  animation-duration: 1s;
+  animation-delay: 0.1s;
+  animation-iteration-count: infinite;
+}
+
+#dot2 {
+  background: #34a853;
+  animation-name: dotloader;
+  animation-duration: 1s;
+  animation-delay: 0.2s;
+  animation-iteration-count: infinite;
+}
+
+#dot3 {
+  background: #4285f4;
+  animation-name: dotloader;
+  animation-duration: 1s;
+  animation-delay: 0.3s;
+  animation-iteration-count: infinite;
+}
+
+#dot4 {
+  background: #fbbc05;
+  animation-name: dotloader;
+  animation-duration: 1s;
+  animation-delay: 0.4s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes dotloader {
+  0% {
+    top: 0px;
   }
 
-  .dot {
-    height: 20px;
-    width: 20px;
-    border-radius: 10px;
-    display: inline-block;
-    position: relative;
+  15% {
+    top: 10px;
   }
 
-  #dot1 {
-    background: #ea4335;
-    animation-name: dotloader;
-    animation-duration: 1s;
-    animation-delay: 0.1s;
-    animation-iteration-count: infinite;
+  30% {
+    top: 0px;
   }
 
-  #dot2 {
-    background: #34a853;
-    animation-name: dotloader;
-    animation-duration: 1s;
-    animation-delay: 0.2s;
-    animation-iteration-count: infinite;
+  100% {
+    top: 0px;
+  }
+}
+
+.squircle {
+  width: 30px;
+  height: 30px;
+  margin: 0px;
+  background: #000;
+  display: inline-block;
+  border: 1px solid #fff;
+  vertical-align: top;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: inherit;
+}
+
+#squircle1 {
+  background: #ea4335;
+  transform-origin: 100% 100%;
+  animation-name: squircle;
+}
+
+#squircle2 {
+  background: #34a853;
+  transform-origin: 0% 100%;
+  animation-name: squircle;
+}
+
+#squircle3 {
+  background: #4285f4;
+  transform-origin: 0% 0%;
+  animation-name: squircle;
+}
+
+#squircle4 {
+  background: #fbbc05;
+  transform-origin: 100% 100%;
+  animation-name: squircle;
+}
+
+#loader2 {
+  // width: 65px;
+  line-height: 0px;
+  // height: 65px;
+  animation-name: loader2;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  transform-origin: 50% 50%;
+  margin: auto;
+}
+
+@keyframes loader2 {
+  0% {
+    transform: rotate(0deg);
   }
 
-  #dot3 {
-    background: #4285f4;
-    animation-name: dotloader;
-    animation-duration: 1s;
-    animation-delay: 0.3s;
-    animation-iteration-count: infinite;
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes squircle {
+  0% {
+    border-radius: 0;
   }
 
-  #dot4 {
-    background: #fbbc05;
-    animation-name: dotloader;
-    animation-duration: 1s;
-    animation-delay: 0.4s;
-    animation-iteration-count: infinite;
+  50% {
+    border-radius: 15px;
+    margin: 5px;
+    width: 19px;
+    height: 19px;
   }
 
-  @keyframes dotloader {
-    0% {
-      top: 0px;
-    }
+  100% {
+    border-radius: 0;
+  }
+}
 
-    15% {
-      top: 10px;
-    }
+#loader3 {
+  margin: 100px;
+  width: 50px;
+  height: 50px;
+  border: 5px solid #aaa;
+  border-radius: 50%;
+  border-bottom-color: blue;
+  animation-name: loader3;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  transform-origin: 50% 50%;
+}
 
-    30% {
-      top: 0px;
-    }
-
-    100% {
-      top: 0px;
-    }
-
+@keyframes loader3 {
+  0% {
+    transform: rotate(0deg);
   }
 
-  .squircle {
-    width: 30px;
-    height: 30px;
-    margin: 0px;
-    background: #000;
-    display: inline-block;
-    border: 1px solid #fff;
-    vertical-align: top;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-timing-function: inherit;
+  100% {
+    transform: rotate(360deg);
   }
-
-  #squircle1 {
-    background: #ea4335;
-    transform-origin: 100% 100%;
-    animation-name: squircle;
-  }
-
-  #squircle2 {
-    background: #34a853;
-    transform-origin: 0% 100%;
-    animation-name: squircle;
-  }
-
-  #squircle3 {
-    background: #4285f4;
-    transform-origin: 0% 0%;
-    animation-name: squircle;
-  }
-
-  #squircle4 {
-    background: #fbbc05;
-    transform-origin: 100% 100%;
-    animation-name: squircle;
-  }
-
-  #loader2 {
-    // width: 65px;
-    line-height: 0px;
-    // height: 65px;
-    animation-name: loader2;
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    transform-origin: 50% 50%;
-    margin: auto;
-  }
-
-  @keyframes loader2 {
-    0% {
-      transform: rotate(0deg);
-    }
-
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  @keyframes squircle {
-    0% {
-      border-radius: 0;
-    }
-
-    50% {
-      border-radius: 15px;
-      margin: 5px;
-      width: 19px;
-      height: 19px;
-    }
-
-    100% {
-      border-radius: 0;
-    }
-  }
-
-  #loader3 {
-    margin: 100px;
-    width: 50px;
-    height: 50px;
-    border: 5px solid #aaa;
-    border-radius: 50%;
-    border-bottom-color: blue;
-    animation-name: loader3;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-    transform-origin: 50% 50%;
-  }
-
-  @keyframes loader3 {
-    0% {
-      transform: rotate(0deg);
-    }
-
-    100% {
-      transform: rotate(360deg);
-    }
-  }
+}
 </style>
-
-
-
-
-
-
-
-

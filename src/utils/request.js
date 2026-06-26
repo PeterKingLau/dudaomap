@@ -3,12 +3,10 @@ import axios from 'axios';
     let waresofeLocation = '涪城' //打包区域端
 const service=axios.create({
     timeout:1000*6000,
-    baseURL:process.env.BASE_URL_HTTPS
-   //  baseURL:process.env.VUE_APP_BASE_URL
+    baseURL:import.meta.env.VITE_BASE_URL_HTTPS
    //baseURL:'/api',//对axios发送的请求路径进行集中设置
 })
 
-// console.log('service:',process.env.BASE_URL_HTTPS)
 //封装post请求
 let post=function(url,data_={}){
     return new Promise((resolve,reject)=>{

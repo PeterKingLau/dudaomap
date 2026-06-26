@@ -1,10 +1,10 @@
 <template>
   <div class="mapHeight">
 
-    <!--实时在线的督导员-->
+    <!--实时在线的人员-->
     <div class="styleCss normal" :style="{ backgroundImage: `url(${borderImg})` }">
       <div class="styleCssTitle">
-        <img src="../assets/images/zc.svg" alt=""> <span>实时在线的督导员</span>
+        <img src="../assets/images/zc.svg" alt=""> <span>实时在线的人员</span>
         <em v-if="realTime.length" class="onlineStyle"><em style="color:#01ec0c">{{ realTime.length }}</em>人</em>
       </div>
       <div class="zcNormal zcline ">
@@ -12,7 +12,7 @@
           <span>姓名</span>
           <span>电话号码</span>
         </div>
-        <vue-seamless-scroll :data="realTime" :class-option="classOption" class="seamless-warp">
+        <AutoScroll :data="realTime" :class-option="classOption" class="seamless-warp">
           <ul class="zcUl" v-if="realTime.length">
             <li v-for="(item, index) in realTime" :key="index * 0.1">
               <span>{{ item.name === 'noname' ? '-' : item.name }}</span>
@@ -21,14 +21,14 @@
           </ul>
 
           <div v-else class="zwData">暂无</div>
-        </vue-seamless-scroll>
+        </AutoScroll>
 
       </div><!--/zcNormal-->
     </div><!--/styleCss-->
 
     <div class="styleCss normal" :style="{ backgroundImage: `url(${borderImg2})` }">
       <div class="styleCssTitle bzDcolor">
-        <img src="../assets/images/bzd.svg" alt=""> <span>离岗督导人员</span>
+        <img src="../assets/images/bzd.svg" alt=""> <span>离岗人员</span>
         <em v-if="absent.length" class="onlineStyle"><em style="color:#ff0000">{{ absent.length }}</em>人</em>
       </div>
 
@@ -38,7 +38,7 @@
           <span>姓名</span>
           <span>距离定点位置距离</span>
         </div>
-        <vue-seamless-scroll :data="absent" :class-option="classOption" class="seamless-warp">
+        <AutoScroll :data="absent" :class-option="classOption" class="seamless-warp">
           <ul class="zcUl" v-if="absent.length">
             {{ item }}
             <li v-for="(item, index) in absent" :key="index * 0.1">
@@ -49,14 +49,18 @@
           </ul>
 
           <div v-else class="zwData">暂无</div>
-        </vue-seamless-scroll>
+        </AutoScroll>
       </div>
     </div>
 
-    <!--长时间不移动督导员-->
-    <div class="styleCss normal" :style="{ backgroundImage: `url(${borderImg})` }">
+    <!--长时间不移动人员-->
+    <div
+      v-show="false"
+      class="styleCss normal"
+      :style="{ backgroundImage: `url(${borderImg})` }"
+    >
       <div class="styleCssTitle longTimecolor">
-        <img src="../assets/images/longtime.svg" alt=""> <span>长时间不移动督导员</span>
+        <img src="../assets/images/longtime.svg" alt=""> <span>长时间不移动人员</span>
         <em v-if="longTime.length" class="onlineStyle"><em style="color:#f75d00">{{ longTime.length }}</em>人</em>
       </div>
 
@@ -67,7 +71,7 @@
           <span>回传数据次数</span>
         </div>
 
-        <vue-seamless-scroll :data="longTime" :class-option="classOption" class="seamless-warp">
+        <AutoScroll :data="longTime" :class-option="classOption" class="seamless-warp">
           <ul class="zcUl" v-if="longTime.length">
 
             <li v-for="(item, index) in longTime" :key="index * 0.1">
@@ -79,14 +83,14 @@
           </ul>
 
           <div v-else class="zwData">暂无</div>
-        </vue-seamless-scroll>
+        </AutoScroll>
       </div>
     </div>
 
-    <!--总注册督导员人数-->
+    <!--总注册人员人数-->
     <!-- <div class="styleCss normal "  :style="{backgroundImage:`url(${borderImg2})`}">
                 <div class="styleCssTitle ss" >
-                    <img src="../assets/images/ss.svg" alt=""> <span>总注册督导员人数</span>
+                    <img src="../assets/images/ss.svg" alt=""> <span>总注册人员人数</span>
                     <em v-if="normalLis.length" class="onlineStyle"><em style="color:#0000f2">{{normalLis.length}}</em>人</em>
                 </div>
                <div class="zcNormal ssline ">
@@ -94,7 +98,7 @@
                          <span>姓名</span>
                          <span>电话号码</span>
                       </div>
-                       <vue-seamless-scroll :data="normalLis" :class-option="classOption" class="seamless-warp">  
+                       <AutoScroll :data="normalLis" :class-option="classOption" class="seamless-warp">  
                         <ul class="zcUl" v-if="normalLis.length">
                             <li  v-for="(item,index) in normalLis" :key="index*0.3">
                                 <span v-if="item.username!=null">{{item.username}}</span>
@@ -104,14 +108,14 @@
                         </ul>
 
                         <div v-else class="zwData">暂无</div>
-                        </vue-seamless-scroll>
+                        </AutoScroll>
                         
                </div>
           </div> -->
 
     <!-- <div class="styleCss normal" :style="{backgroundImage:`url(${borderImg3})`}">
       <div class="styleCssTitle wsx">
-        <img src="../assets/images/wsx.svg" alt=""> <span>数据异常督导员</span>
+        <img src="../assets/images/wsx.svg" alt=""> <span>数据异常人员</span>
         <em v-if="workerstatusDeny.length" class="onlineStyle"><em style="color:#d81e06">{{workerstatusDeny.length}}</em>人</em>
       </div>
       <div class="zcNormal wsxLine">
@@ -120,7 +124,7 @@
           <span>电话号码</span>
         </div>
 
-        <vue-seamless-scroll :data="workerstatusDeny" :class-option="classOption" class="seamless-warp">
+        <AutoScroll :data="workerstatusDeny" :class-option="classOption" class="seamless-warp">
           <ul class="zcUl" v-if="workerstatusDeny.length">
             <li v-for="(item,index) in workerstatusDeny" :key="index*0.4">
               <span>{{item.username}}</span>
@@ -129,7 +133,7 @@
           </ul>
 
           <div v-else class="zwData">暂无</div>
-        </vue-seamless-scroll>
+        </AutoScroll>
       </div>
     </div> -->
 
@@ -144,7 +148,7 @@
           <span>姓名</span>
           <span>电话号码</span>
         </div>
-        <vue-seamless-scroll :data="workerstatusStay" :class-option="classOption" class="seamless-warp">
+        <AutoScroll :data="workerstatusStay" :class-option="classOption" class="seamless-warp">
           <ul class="zcUl" v-if="workerstatusStay.length">
             <li v-for="(item, index) in workerstatusStay" :key="index * 0.5">
               <span>{{ item.name }}</span>
@@ -152,13 +156,13 @@
             </li>
           </ul>
 
-          <div v-else class="zwData">暂无长时间未移动的督导员</div>
-        </vue-seamless-scroll>
+          <div v-else class="zwData">暂无长时间未移动的人员</div>
+        </AutoScroll>
       </div><!--/zcNormal-->
     </div><!--/styleCss-->
 
-    <!--长时间不移动督导员-->
-    <el-dialog title="长时间不移动督导员" :visible.sync="longtimeProup" width="500px" center :modal-append-to-body='false'>
+    <!--长时间不移动人员-->
+    <el-dialog title="长时间不移动人员" v-model="longtimeProup" width="500px" center :modal-append-to-body='false'>
       <div class="superintendent">
         <!-- <p>
                             <span><img src="../assets/images/zcName.png" alt="" /></span
@@ -181,8 +185,8 @@
       </div>
     </el-dialog>
 
-    <!--当前不在点位督导员-->
-    <el-dialog title="当前不在点位督导员" :visible.sync="bzdProup" width="500px" center :modal-append-to-body='false'>
+    <!--当前不在点位人员-->
+    <el-dialog title="当前不在点位人员" v-model="bzdProup" width="500px" center :modal-append-to-body='false'>
       <div class="superintendent">
         <!-- <p>
                             <span><img src="../assets/images/zcName.png" alt="" /></span
@@ -205,15 +209,17 @@
 
 <script>
 import { notInLoaction, workerstatusStaytime, workerstatusNormal, workerstatusDeny, workerstatusStay, point, findAllTodayfault, notNormalWorkers, botOnLine, hxduserfindAll, findAllToday } from '@/api/api'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import axios from '@/utils/request'
-import vueSeamlessScroll from "vue-seamless-scroll";
 import Bus from '../utils/eventBus' //兄弟间传值
+const assetUrl = (name) => new URL(`../assets/images/${name}`, import.meta.url).href
 export default {
-  components: {
-    vueSeamlessScroll
-  },
   props: ['getCurrent', 'localtion'],
+  inject: {
+    baiduMapRef: {
+      default: null,
+    },
+  },
   data() {
     return {
       bzdProup: false,
@@ -227,13 +233,18 @@ export default {
       workerstatusDeny: [],
       workerstatusStay: [],
       timer: null,
-      borderImg: require('../assets/images/border.png'),
-      borderImg2: require('../assets/images/border2.png'),
-      borderImg3: require('../assets/images/border3.png'),
-      iconLOrange: require("../assets/images/orange.png"),
-      zbLsRed: require("../assets/images/wsxRed.png"),
-      zbLsOrange: require("../assets/images/zborange.png"),
-      iconLsRed: require("../assets/images/red.png"),
+      requestSeq: {
+        absent: 0,
+        staytime: 0,
+        point: 0,
+      },
+      borderImg: assetUrl('border.png'),
+      borderImg2: assetUrl('border2.png'),
+      borderImg3: assetUrl('border3.png'),
+      iconLOrange: assetUrl("orange.png"),
+      zbLsRed: assetUrl("wsxRed.png"),
+      zbLsOrange: assetUrl("zborange.png"),
+      iconLsRed: assetUrl("red.png"),
     }
   },
   computed: {
@@ -254,50 +265,51 @@ export default {
     },
   },
   created() {
-    this.absentpoint = new BMapGL.Icon(this.zbLsRed, new BMapGL.Size(18, 30));// 创建不在点位的督导员
-    this.longtimepoint = new BMapGL.Icon(this.zbLsOrange, new BMapGL.Size(18, 30));// 创建长时间不移动督导员
-    this.$nextTick(() => {
-      this.getWorkerstatusDeny()
-      // this.getWorkerstatusNormal()
-      // this.getWorkerstatusStay()
-      this.getWorkerstatusStaytime(this.localtion)
-    })
+    this.absentpoint = new BMapGL.Icon(this.zbLsRed, new BMapGL.Size(18, 30));// 创建不在点位的人员
+    this.longtimepoint = new BMapGL.Icon(this.zbLsOrange, new BMapGL.Size(18, 30));// 创建长时间不移动人员
   },
   mounted() {
-    this.getNotInLoaction(this.localtion)
-    // this.$nextTick(() => {
-    //     setTimeout(() => {
-    //         this.getWorkerstatusNormal()
-    //         this.getWorkerstatusDeny()
-    //         this.getWorkerstatusStay()
-    //     }, 500)
-    // })
-
-    this.timer = setInterval(() => {//每隔5分鐘刷新一次接口
-      this.getWorkerstatusDeny()
-      this.getNotInLoaction(this.localtion)
-      // this.getWorkerstatusNormal()
-      this.getWorkerstatusStay(this.localtion)
-    }, 300000)
-
-    this.pointMap(this.localtion);
-    // this.getToDay()
-    this.timer = setInterval(() => {
-      //每隔5分鐘刷新一次接口
-      this.pointMap(this.localtion);
-      //   this.getToDay()
-    }, 300000);
-    this.$once('hook:beforeDestroy', () => { clearInterval(this.timer); })//防止setInterval多次请求
-
-
+    this.refreshPanelData(this.localtion);
+    this.startRefreshTimer();
   },
-  beforeDestroy() {
-    clearInterval(this.timer);
+  beforeUnmount() {
+    this.stopRefreshTimer();
   },
   methods: {
-    getWorkerstatusStaytime(name) {//长时间不移动督导员  橙色
-      
-      workerstatusStaytime({ start: moment(new Date()).format('YYYY-MM-DD'), disname: name }).then(res => {
+    getMap() {
+      return this.baiduMapRef?.value || this.baiduMapRef || this.$parent?.map;
+    },
+    startRefreshTimer() {
+      this.stopRefreshTimer();
+      this.timer = setInterval(() => {
+        if (document.hidden) {
+          return;
+        }
+
+        this.refreshPanelData(this.localtion);
+      }, 300000);
+    },
+    stopRefreshTimer() {
+      if (this.timer) {
+        clearInterval(this.timer);
+        this.timer = null;
+      }
+    },
+    refreshPanelData(name) {
+      this.getWorkerstatusDeny();
+      this.getNotInLoaction(name || this.localtion);
+      this.getWorkerstatusStaytime(name || this.localtion);
+      this.pointMap(name || this.localtion);
+    },
+    getWorkerstatusStaytime(name) {//长时间不移动人员  橙色
+      const region = name || this.localtion || axios.waresofeLocation;
+      const requestId = ++this.requestSeq.staytime;
+
+      workerstatusStaytime({ start: dayjs().format('YYYY-MM-DD'), disname: region }).then(res => {
+        if (requestId !== this.requestSeq.staytime) {
+          return;
+        }
+
      
           this.longTime = res.map((item, index) => {
             console.log(item)
@@ -314,10 +326,14 @@ export default {
           }).filter(item => item)
          
           this.longTime.map(item => {
-            //创建长时间不移动督导员的坐标点
+            //创建长时间不移动人员的坐标点
+            const map = this.getMap();
+            if (!map) {
+              return;
+            }
             let pt = new BMapGL.Point(item.lng, item.lat),
               marker = new BMapGL.Marker(pt, { icon: this.longtimepoint });
-            this.$parent.map.addOverlay(marker)
+            map.addOverlay(marker)
             // let content2 = "";//创建坐标点上的 浮层
             // content2 = `<p class='labelW' onclick='longtimePoint(${JSON.stringify(item)})'><img style='width:25px; height:25px' src='${this.iconLOrange}'/><span>${item.username ?item.username :item.tel}</span></p>`
             let opts2 = {
@@ -337,7 +353,6 @@ export default {
             //   transform: 'translateX(-50%)',
             //   fontFamily: "微软雅黑",
             // });
-            // this.$parent.map.addOverlay(label2)
             marker.addEventListener("click", function () {
 
 window.longtimePoint(item);
@@ -357,13 +372,19 @@ window.longtimePoint(item);
       })
     },
     getNotInLoaction(name) {//红色
-      console.log('getNotInLoaction',this.localtion)
-      notInLoaction({ start: moment(new Date()).format('YYYY-MM-DD'), disname: this.localtion }).then(res => {
+      const region = name || this.localtion || axios.waresofeLocation;
+      const requestId = ++this.requestSeq.absent;
 
+      notInLoaction({ start: dayjs().format('YYYY-MM-DD'), disname: region }).then(res => {
+        if (requestId !== this.requestSeq.absent) {
+          return;
+        }
+
+              console.log('gtNO',res)
         if (Object.keys(res).length) {
           let vals = Object.values(res); //对象转数组
-          if (name !== '总公司') {
-            vals = vals.filter(item => item.indexOf(name !== '涪城' && name !== '安州' ? '四川省' + name : name) > -1)
+          if (region !== '总公司') {
+            vals = vals.filter(item => item.indexOf(region !== '涪城' && region !== '安州' && region !== '成华' ? '四川省' + region : region) > -1)
           }
           this.absent = vals.map((item, index) => {
             let newarr = item.split('&')
@@ -380,11 +401,15 @@ window.longtimePoint(item);
           }).filter(item2 => item2)
        //   console.log(this.absent)
           this.absent.map(item => {
-            //创建当前不在点位督导员的坐标点
+            //创建当前不在点位人员的坐标点
             console.log(item)
+            const map = this.getMap();
+            if (!map) {
+              return;
+            }
             let pt = new BMapGL.Point(item.lng, item.lat),
               marker = new BMapGL.Marker(pt, { icon: this.absentpoint });
-            this.$parent.map.addOverlay(marker)
+            map.addOverlay(marker)
 
             // let content = "";//创建坐标点上的 浮层
             // content = `<p class='labelW' onclick='noAbsentPoint(${JSON.stringify(item)})'><img style='width:25px; height:25px' src='${this.iconLsRed}'/><span>${item.name ? item.name : item.tel}</span></p>`
@@ -405,7 +430,6 @@ window.longtimePoint(item);
             //   transform: 'translateX(-50%)',
             //   fontFamily: "微软雅黑"
             // });
-            // this.$parent.map.addOverlay(label1)
 
             window.noAbsentPoint = (info) => {
               this.bzdProup = true
@@ -429,13 +453,16 @@ window.longtimePoint(item);
     },
     async pointMap(name) {//实时的暂时隐藏
 
-      console.log(name)
-      name = name ? name : axios.waresofeLocation
-      let res = await point({ disname: name });
+      const region = name || this.localtion || axios.waresofeLocation;
+      const requestId = ++this.requestSeq.point;
+      let res = await point({ disname: region });
+      if (requestId !== this.requestSeq.point) {
+        return;
+      }
       let vals = Object.values(res); //对象转数组
 
-      if (name !== '总公司') {
-        vals = vals.filter(item => item.indexOf(name !== '涪城' && name !== '安州' ? '四川省' + name : name) > -1)
+      if (region !== '总公司') {
+        vals = vals.filter(item => item.indexOf(region !== '涪城' && region !== '安州' && region !== '成华' ? '四川省' + region : region) > -1)
       }
       let newValss = vals.map((item, index) => {
         return {
@@ -481,7 +508,7 @@ window.longtimePoint(item);
     //     });
     //   })
     // },
-    getWorkerstatusNormal() {//注册的督导员
+    getWorkerstatusNormal() {//注册的人员
       workerstatusNormal().then(res => {
         let vals = Object.values(res);//获取key
         this.normalLis = vals.map((item, index) => { //正常在线
@@ -514,12 +541,12 @@ window.longtimePoint(item);
         })
 
 
-        Bus.$emit('zcLnglat', res)//兄弟页面传值
+        Bus.emit('zcLnglat', res)//兄弟页面传值
 
 
       })
     },
-    getWorkerstatusDeny() {//异常督导员
+    getWorkerstatusDeny() {//异常人员
       notNormalWorkers({ disname: this.localtion }).then(res => {
         //   let tels =Object.values(res);//获取key
         //   let telsLis=  tels.map((item,index)=>{
@@ -550,7 +577,7 @@ window.longtimePoint(item);
       //   })
 
     },
-    getWorkerstatusStay() {//长时间未移动的督导员
+    getWorkerstatusStay() {//长时间未移动的人员
       workerstatusStay({ disname: this.localtion }).then(res => {
         // console.log('123',res)
         let vals = Object.values(res);//获取key
@@ -566,7 +593,7 @@ window.longtimePoint(item);
           }
         })
 
-        Bus.$emit('wydLnglat', this.workerstatusStay)//兄弟页面传值
+        Bus.emit('wydLnglat', this.workerstatusStay)//兄弟页面传值
       })
     }
 
