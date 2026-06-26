@@ -40,162 +40,89 @@
     </div>
     <!--leftPos-->
 
-    <!--地图不在点位，长时间不移动，实时在线的人员切换 -->
-    <!-- <div class="fixedBottom">
-      <ul>
-        <li class="item" v-for="(item,index) in listFixBot" :key="index">
-          <div @click="lookMap(index)" :class="index ==currenIndex?'active':''">{{item}}</div>
-        </li>
-
-      </ul>
-    </div> -->
-
     <el-dialog
       title="实时在线的人员"
       v-model="centerDialogVisible"
-      width="500px"
-      custom-class="zcLine"
-      center
-    >
-      <div class="superintendent">
-        <p>
-          <span><img src="../assets/images/zcName.png" alt="" /></span
-          >{{ proupSs.name }}
-        </p>
-        <p>
-          <span><img src="../assets/images/zcTel.png" alt="" /></span
-          >{{ proupSs.tel }}
-        </p>
-        <p>
-          <span><img src="../assets/images/zcAdress.png" alt="" /></span
-          >{{ proupSs.adress }}
-        </p>
-        <p>
-          <span><img src="../assets/images/zcTrack.png" alt="" /> </span>
-          <em class="history" style="color: #01ec0c" @click="lookHistory"
-            >查看历史轨迹线</em
-          >
-        </p>
-      </div>
-    </el-dialog>
-
-    <el-dialog
-      title="设备状态"
-      v-model="centerDeviceVisible"
       width="520px"
-      custom-class="zcLine deviceStatusDialog"
-      class="deviceStatusDialog"
+      custom-class="zcLine onlinePersonDialog"
+      class="onlinePersonDialog"
       center
     >
-      <div class="deviceStatusCard">
-        <div class="deviceStatusCard__header">
-          <span class="deviceStatusCard__dot" :class="deviceStatusClass"></span>
+      <div class="onlinePersonCard">
+        <div class="onlinePersonCard__header">
+          <span class="onlinePersonCard__dot"></span>
           <div>
-            <strong>{{ proupDe.name || "未知设备" }}</strong>
-            <p>设备运行状态</p>
+            <strong>{{ onlinePersonName }}</strong>
+            <p>人员实时在线</p>
           </div>
-          <em class="deviceStatusCard__tag" :class="deviceStatusClass">
-            {{ proupDe.stat || "--" }}
-          </em>
+          <em>在线</em>
         </div>
 
-        <div class="deviceStatusCard__list">
-          <div class="deviceStatusCard__item">
-            <span><img src="../assets/images/zcName.png" alt="" /></span>
+        <div class="onlinePersonCard__list">
+          <div class="onlinePersonCard__item">
+            <span><img src="../assets/images/icon-online-name.png" alt="" /></span>
             <div>
-              <label>设备名称</label>
-              <p>{{ proupDe.name || "--" }}</p>
+              <label>姓名</label>
+              <p>{{ onlinePersonName }}</p>
             </div>
           </div>
-          <div class="deviceStatusCard__item">
-            <span><img src="../assets/images/zcAdress.png" alt="" /></span>
+          <div class="onlinePersonCard__item">
+            <span><img src="../assets/images/icon-online-phone.png" alt="" /></span>
             <div>
-              <label>所在位置</label>
-              <p>{{ proupDe.add || "--" }}</p>
+              <label>电话号码</label>
+              <p>{{ proupSs.tel || "--" }}</p>
             </div>
           </div>
-          <div class="deviceStatusCard__item">
-            <span><img src="../assets/images/zcTel.png" alt="" /></span>
+          <div class="onlinePersonCard__item">
+            <span><img src="../assets/images/icon-online-address.png" alt="" /></span>
             <div>
-              <label>当前状态</label>
-              <p>{{ proupDe.stat || "--" }}</p>
+              <label>当前位置</label>
+              <p>{{ proupSs.adress || "--" }}</p>
             </div>
           </div>
         </div>
+
+        <button class="onlinePersonCard__action" type="button" @click="lookHistory">
+          <img src="../assets/images/icon-online-track.png" alt="" />
+          <span>查看历史轨迹线</span>
+        </button>
       </div>
     </el-dialog>
 
-    <el-dialog
-      v-model="centerDialogVisible_Zc"
-      width="30%"
-      custom-class="zcLine"
-      center
-    >
-      <div class="superintendent">
-        <p>
-          <span><img src="../assets/images/zcName.png" alt="" /></span
-          >{{ proupZc.name }}
-        </p>
-        <p>
-          <span><img src="../assets/images/zcTel.png" alt="" /></span
-          >{{ proupZc.tel }}
-        </p>
-        <p>
-          <span><img src="../assets/images/zcAdress.png" alt="" /></span
-          >{{ proupZc.adress }}
-        </p>
-        <p>
-          <span><img src="../assets/images/zcTrack.png" alt="" /> </span>
-          <em class="history" style="color: #01ec0c" @click="lookHistory"
-            >查看历史轨迹线</em
-          >
-        </p>
-      </div>
-    </el-dialog>
-
-    <el-dialog
-      title="长时间未移动的人员"
-      v-model="centerDialogVisible_Cs"
-      width="30%"
-      custom-class="zcLine"
-      center
-    >
-      <div class="superintendent">
-        <p>
-          <span><img src="../assets/images/csName.png" alt="" /></span
-          >{{ proupCs.name }}
-        </p>
-        <p>
-          <span><img src="../assets/images/csTel.png" alt="" /></span
-          >{{ proupCs.tel }}
-        </p>
-        <p>
-          <span><img src="../assets/images/csAdress.png" alt="" /></span
-          >{{ proupCs.adress }}
-        </p>
-        <p>
-          <span><img src="../assets/images/csTrack.png" alt="" /> </span>
-          <em class="history" style="color: #1296db" @click="lookHistory"
-            >查看历史轨迹线</em
-          >
-        </p>
-      </div>
-    </el-dialog>
+    <DeviceStatusDialog
+      v-model="centerDeviceVisible"
+      :device="proupDe"
+    />
 
     <!--查看轨迹弹窗显示-->
     <el-dialog
       title="请选择时间查询历史轨迹"
       v-model="historyTrack"
-      width="500px"
-      custom-class="zcLine"
+      width="520px"
+      custom-class="zcLine trackQueryDialog"
+      class="trackQueryDialog"
       center
     >
-      <div class="superintendent">
+      <div class="trackQueryCard">
+        <div class="trackQueryCard__loading" v-if="fullscreenLoading">
+          <span></span>
+          <p>正在查询轨迹，请稍后</p>
+        </div>
+
+        <div class="trackQueryCard__header">
+          <span class="trackQueryCard__dot"></span>
+          <div>
+            <strong>{{ onlinePersonName }}</strong>
+            <p>查询指定日期的历史轨迹</p>
+          </div>
+        </div>
+
         <el-form
+          class="trackQueryCard__form"
           :model="ruleForm"
           :rules="rules"
           ref="ruleFormRef"
-          label-width="100px"
+          label-width="82px"
         >
           <el-form-item label="电话号码">
             <el-input v-model="proupSs.tel" readonly="readonly"></el-input>
@@ -212,10 +139,11 @@
 
           <el-form-item>
             <el-button
-              type="primary"
+              class="trackQueryCard__button"
               @click="submitForm('ruleForm')"
-              v-loading.fullscreen.lock="fullscreenLoading"
-              >查找</el-button
+              :loading="fullscreenLoading"
+              :disabled="fullscreenLoading"
+              >{{ fullscreenLoading ? "查询中" : "查找" }}</el-button
             >
           </el-form-item>
         </el-form>
@@ -232,74 +160,47 @@
 import { computed, onBeforeUnmount, onMounted, provide, reactive, ref } from "vue";
 import MapRight from "../views/mapRight.vue";
 import MapLeft from "../views/mapLeft.vue";
+import DeviceStatusDialog from "@/components/map/DeviceStatusDialog.vue";
 import { Warning } from "@element-plus/icons-vue";
 import axios from "@/utils/request";
 import {
-  point as pointApi,
-  hxdlocationFindAll as hxdlocationFindAllApi,
-  getDeviceInfo,
+  getRealLocationList,
+  getLocationTrackPoints,
+  getDeviceInfoByCoordinate,
 } from "@/api/api";
-import Bus from "../utils/eventBus";
-import today from "@/utils/today";
+import {
+  getDeviceStatusText,
+  getMapCenter,
+  getMapZoom,
+  getRegionKeyword,
+} from "@/utils/mapConfig";
+import { getBMapGL, waitForBMapGL } from "@/utils/baiduMap";
 import { filterTime } from "@/utils/today.js";
 
 const assetUrl = (name) =>
   new URL(`../assets/images/${name}`, import.meta.url).href;
 
-const mapObj = {
-  涪城: [104.679127, 31.467673],
-  总公司: [104.679127, 31.467673],
-  广汉: [104.28249, 30.97706],
-  安州: [104.56735, 31.45475],
-  南充: [106.118889, 30.781529],
-  射洪: [105.38836, 30.87113],
-  成华: [104.10194, 30.65984],
-};
-
 const rightMapRef = ref(null);
 const leftMethods = ref(null);
 const ruleFormRef = ref(null);
 
-const listFixBot = ref([
-  "当前不在点位的人员",
-  "长时间不移动的人员",
-  "实时在线的人员",
-]);
 const currenIndex = ref(-1);
-const bgImg = assetUrl("ddytitle.png");
-const trackElamap = ref(false);
-const zoom = ref(13);
-const visible = ref(true);
-const postFd = reactive({ top: 100, left: 120 });
-const center = ref([104.679127, 31.467673]);
-const position = ref([104.674063, 31.467161]);
-const center2 = ref([]);
-const offset = ref([0, -40]);
-const iconLs = assetUrl("lvs.png");
-const iconLsYellow = assetUrl("lvs.png");
-const iconDevB = assetUrl("s_blue.png");
-const iconDevR = assetUrl("s_red.png");
-const iconDevG = assetUrl("s_grey.png");
+const bgImg = assetUrl("header-dispatch-title.png");
+const iconLs = assetUrl("marker-person-online.png");
+const iconDevB = assetUrl("marker-device-normal.png");
+const iconDevR = assetUrl("marker-device-fault.png");
+const iconDevG = assetUrl("marker-device-offline.png");
 
 const realTime = ref([]);
-const newVals = ref([]);
-const newVals_wyd = ref([]);
 const timer = ref(null);
 const mapRefreshDebounceTimer = ref(null);
 const pointMapRequestId = ref(0);
 const pointDeviceRequestId = ref(0);
 const deviceCache = reactive({});
-const viewMode = ref("3D");
 const centerDialogVisible = ref(false);
-const centerDialogVisible_Zc = ref(false);
-const centerDialogVisible_Cs = ref(false);
 const centerDeviceVisible = ref(false);
 const proupSs = ref({});
-const proupZc = ref({});
-const proupCs = ref({});
 const proupDe = ref({});
-const toDayTime = today();
-const getCoord = ref([]);
 const historyTrack = ref(false);
 const ruleForm = reactive({ date: "" });
 const rules = {
@@ -311,64 +212,35 @@ const elAmap = ref(true);
 const superintendentMap = ref(false);
 const map = ref("");
 provide("baiduMapRef", map);
+const bMapGL = ref(null);
 const duMap = ref("");
 const mapPoint = ref("");
 const duPoint = ref("");
 const realtimeIco = ref("");
 const localtion = ref(axios.waresofeLocation);
 const realOnLine = {
-  nameIco: assetUrl("zcName.png"),
-  telIco: assetUrl("zcTel.png"),
-  adressIco: assetUrl("zcAdress.png"),
-  trackIco: assetUrl("zcTrack.png"),
+  nameIco: assetUrl("icon-online-name.png"),
+  telIco: assetUrl("icon-online-phone.png"),
+  adressIco: assetUrl("icon-online-address.png"),
 };
 const tsTrack = ref(false);
 
-const deviceStatusClass = computed(() => {
-  if (proupDe.value.stat === "故障") {
-    return "is-error";
+const onlinePersonName = computed(() => {
+  if (!proupSs.value.name || proupSs.value.name === "noname") {
+    return "未上传姓名";
   }
 
-  if (proupDe.value.stat === "离线") {
-    return "is-offline";
-  }
-
-  return "is-normal";
+  return proupSs.value.name;
 });
 
-function handleZcLnglat(data) {
-  newVals.value = data;
-}
-
-function handleWydLnglat(data) {
-  newVals_wyd.value = data;
-}
-
-Bus.on("zcLnglat", handleZcLnglat);
-Bus.on("wydLnglat", handleWydLnglat);
-
-onMounted(() => {
-  if (elAmap.value) {
-    map.value = new BMapGL.Map("container");
-    mapPoint.value = new BMapGL.Point(...mapObj[axios.waresofeLocation]);
-    map.value.centerAndZoom(
-      mapPoint.value,
-      axios.waresofeLocation === "总公司" ? 5 : 15,
-    );
-    map.value.enableScrollWheelZoom(true);
-    realtimeIco.value = new BMapGL.Icon(iconLs, new BMapGL.Size(18, 30));
-  }
-
-  bindMapLazyRefresh();
-  refreshMapData(localtion.value);
-  startMapRefreshTimer(localtion.value);
+onMounted(async () => {
+  const initialRegion = axios.waresofeLocation;
+  await initMapA(initialRegion, getMapZoom(initialRegion));
 });
 
 onBeforeUnmount(() => {
   stopMapRefreshTimer();
   clearTimeout(mapRefreshDebounceTimer.value);
-  Bus.off("zcLnglat", handleZcLnglat);
-  Bus.off("wydLnglat", handleWydLnglat);
 });
 
 function startMapRefreshTimer(name) {
@@ -419,46 +291,44 @@ function bindMapLazyRefresh() {
   });
 }
 
-function initMapA(name) {
+async function initMapA(name, zoomLevel = 14) {
   const region = name || axios.waresofeLocation;
   stopMapRefreshTimer();
 
+  try {
+    bMapGL.value = await waitForBMapGL();
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+
   if (elAmap.value) {
-    map.value = new BMapGL.Map("container");
-    mapPoint.value = new BMapGL.Point(...mapObj[region]);
-    map.value.centerAndZoom(mapPoint.value, 14);
+    const BMap = bMapGL.value;
+    map.value = new BMap.Map("container");
+    mapPoint.value = new BMap.Point(...getMapCenter(region));
+    map.value.centerAndZoom(mapPoint.value, zoomLevel);
     map.value.enableScrollWheelZoom(true);
-    realtimeIco.value = new BMapGL.Icon(iconLs, new BMapGL.Size(18, 30));
+    realtimeIco.value = new BMap.Icon(iconLs, new BMap.Size(18, 30));
     map.value.addEventListener("tilesloaded", function () {});
+    setTimeout(() => {
+      map.value?.resize?.();
+      map.value?.centerAndZoom?.(mapPoint.value, zoomLevel);
+    }, 0);
   }
 
   bindMapLazyRefresh();
   refreshMapData(region);
   startMapRefreshTimer(region);
+  return true;
 }
 
-function lookMap(index) {
-  currenIndex.value = index;
-  listFixBot.value.push("查看全部");
-  listFixBot.value = Array.from(new Set(listFixBot.value));
-
-  if (index == 2) {
-    map.value.clearOverlays();
-    pointMap();
-  }
-
-  if (index == 3) {
-    listFixBot.value.pop();
-    map.value.clearOverlays();
-    pointMap();
-    leftMethods.value?.getNotInLoaction?.();
-    leftMethods.value?.getWorkerstatusStaytime?.();
-  }
-}
-
-function initRightTable(val) {
+async function initRightTable(val) {
   localtion.value = val;
-  initMapA(val);
+  const ready = await initMapA(val, getMapZoom(val));
+  if (!ready || !map.value) {
+    return;
+  }
+
   rightMapRef.value?.pointMap?.(val);
   rightMapRef.value?.getNotInLoaction?.(val);
   rightMapRef.value?.getWorkerstatusStaytime?.(val);
@@ -467,7 +337,7 @@ function initRightTable(val) {
 function pointDevice(name) {
   const region = name || localtion.value || axios.waresofeLocation;
 
-  if (!map.value || !mapObj[region]) {
+  if (!map.value) {
     return;
   }
 
@@ -478,9 +348,7 @@ function pointDevice(name) {
   }
 
   const requestId = ++pointDeviceRequestId.value;
-  const str = mapObj[region][0] + "," + mapObj[region][1];
-  const param = { coordinate: str };
-  getDeviceInfo(param).then((res) => {
+  getDeviceInfoByCoordinate(getMapCenter(region)).then((res) => {
     if (
       requestId !== pointDeviceRequestId.value ||
       region !== localtion.value ||
@@ -498,7 +366,8 @@ function pointDevice(name) {
 }
 
 function renderDeviceMarkers(list = []) {
-  if (!map.value) {
+  const BMap = bMapGL.value || getBMapGL();
+  if (!map.value || !BMap) {
     return;
   }
 
@@ -507,7 +376,7 @@ function renderDeviceMarkers(list = []) {
       return;
     }
 
-    const point = new BMapGL.Point(item.lnglat[0], item.lnglat[1]);
+    const point = new BMap.Point(item.lnglat[0], item.lnglat[1]);
     let icon = iconDevB;
     if (item.style == 2) {
       icon = iconDevR;
@@ -516,8 +385,8 @@ function renderDeviceMarkers(list = []) {
       icon = iconDevG;
     }
 
-    const myIcon = new BMapGL.Icon(icon, new BMapGL.Size(23, 23));
-    const marker = new BMapGL.Marker(point, { icon: myIcon });
+    const myIcon = new BMap.Icon(icon, new BMap.Size(23, 23));
+    const marker = new BMap.Marker(point, { icon: myIcon });
     marker.dd = item;
     marker.addEventListener("click", deleteMarker);
     map.value.addOverlay(marker);
@@ -528,21 +397,7 @@ function deleteMarker(e) {
   const item = e.target.dd;
   proupDe.value.add = item.address;
   proupDe.value.name = item.name;
-
-  let stat = "";
-  switch (item.style) {
-    case 0:
-      stat = "正常";
-      break;
-    case 2:
-      stat = "故障";
-      break;
-    case 1:
-      stat = "离线";
-      break;
-  }
-
-  proupDe.value.stat = stat;
+  proupDe.value.stat = getDeviceStatusText(item.style);
   centerDeviceVisible.value = true;
 }
 
@@ -556,44 +411,33 @@ function pointMap(name) {
   localtion.value = region;
   pointDevice(region);
   const requestId = ++pointMapRequestId.value;
-  pointApi({ disname: region }).then((res) => {
+  getRealLocationList({ disname: region }).then((list) => {
     if (requestId !== pointMapRequestId.value || region !== localtion.value) {
       return;
     }
 
-    let vals = Object.values(res);
-    if (localtion.value !== "总公司") {
-      vals = vals.filter(
-        (item) =>
-          item.indexOf(
-            localtion.value !== "涪城" &&
-              localtion.value !== "安州" &&
-              localtion.value !== "成华"
-              ? "四川省" + localtion.value
-              : localtion.value,
-          ) > -1,
+    let realLocationList = list;
+    const regionKeyword = getRegionKeyword(localtion.value);
+    if (regionKeyword) {
+      realLocationList = realLocationList.filter((item) =>
+        item.raw.includes(regionKeyword),
       );
     }
 
-    const phones = Object.keys(res);
-    const newValss = vals.map((item, index) => ({
-      adress: item.split("&")[0].split("省")[1],
-      lat: parseFloat(item.split("&")[1]),
-      lng: parseFloat(item.split("&")[2]),
-      name: item.split("&")[3] || "暂未上传名字",
-      phone: phones[index],
-    }));
-
-    realTime.value = newValss.filter((item) => item.adress != "null");
+    realTime.value = realLocationList.filter(
+      (item) =>
+        item.adress != "null" && !Number.isNaN(item.lat) && !Number.isNaN(item.lng),
+    );
 
     requestAnimationFrame(() => {
-      if (requestId !== pointMapRequestId.value || !map.value) {
+      const BMap = bMapGL.value || getBMapGL();
+      if (requestId !== pointMapRequestId.value || !map.value || !BMap) {
         return;
       }
 
       realTime.value.forEach((item) => {
-        const pt = new BMapGL.Point(item.lng, item.lat);
-        const marker = new BMapGL.Marker(pt, { icon: realtimeIco.value });
+        const pt = new BMap.Point(item.lng, item.lat);
+        const marker = new BMap.Marker(pt, { icon: realtimeIco.value });
         marker.addEventListener("click", function () {
           window.lookAdress(item);
         });
@@ -608,20 +452,6 @@ function pointMap(name) {
           centerDialogVisible.value = true;
         };
       });
-    });
-  });
-}
-
-function removeMarker() {
-  map.value?.clearOverlays?.();
-}
-
-function hxdlocationFindAll(item) {
-  return new Promise((resolve) => {
-    hxdlocationFindAllApi({ phone: item.phone, dats: today() }).then((res) => {
-      if (res.length) {
-        resolve(res);
-      }
     });
   });
 }
@@ -643,127 +473,127 @@ function submitForm() {
       return false;
     }
 
-    hxdlocationFindAllApi(data).then((res) => {
-      if (res.length) {
-        const newAssignTrack = res.map((item) => {
-          const newItem = item.locationinfo.split("&");
-          return [newItem[2], newItem[1]];
-        });
+    fullscreenLoading.value = true;
+    tsTrack.value = false;
+    getLocationTrackPoints(data).then((newAssignTrack) => {
+      fullscreenLoading.value = false;
+      if (newAssignTrack.length) {
+        const BMap = bMapGL.value || getBMapGL();
+        if (!BMap) {
+          return;
+        }
+
         assignTrack.value = newAssignTrack;
-        fullscreenLoading.value = true;
+        historyTrack.value = false;
+        centerDialogVisible.value = false;
+        elAmap.value = false;
+        superintendentMap.value = true;
+        duMap.value = new BMap.Map("superintendent");
+        duMap.value.setDisplayOptions({
+          poiText: true,
+          poiIcon: true,
+          building: false,
+        });
+
+        duMap.value.enableScrollWheelZoom(true);
+        duPoint.value = new BMap.Point(
+          assignTrack.value[0][0],
+          assignTrack.value[0][1],
+        );
+        duMap.value.clearOverlays();
+        const pt = new BMap.Point(
+          assignTrack.value[0][0],
+          assignTrack.value[0][1],
+        );
+        const marker = new BMap.Marker(pt, { icon: realtimeIco.value });
         setTimeout(() => {
-          fullscreenLoading.value = false;
-        }, 2000);
-        setTimeout(() => {
-          tsTrack.value = false;
-          historyTrack.value = false;
-          centerDialogVisible.value = false;
-          center.value = newAssignTrack[0];
-          elAmap.value = false;
-          superintendentMap.value = true;
-          duMap.value = new BMapGL.Map("superintendent");
-          duMap.value.setDisplayOptions({
-            poiText: true,
-            poiIcon: true,
-            building: false,
+          duMap.value.centerAndZoom(duPoint.value, 19);
+          duMap.value.addOverlay(marker);
+
+          const content = `
+              <div class="trackResultCard">
+                <div class="trackResultCard__status"></div>
+                <div class="trackResultCard__item">
+                  <span><img src="${realOnLine.nameIco}" /></span>
+                  <strong>${onlinePersonName.value}</strong>
+                </div>
+                <div class="trackResultCard__item">
+                  <span><img src="${realOnLine.telIco}" /></span>
+                  <strong>${proupSs.value.tel || "--"}</strong>
+                </div>
+                <div class="trackResultCard__item">
+                  <span><img src="${realOnLine.adressIco}" /></span>
+                  <strong>${proupSs.value.adress || "--"}</strong>
+                </div>
+                <button class="trackResultCard__button" onclick="backMapBig(${assignTrack.value[0][0]},${assignTrack.value[0][1]})">返回</button>
+              </div>
+            `;
+
+          const opts = {
+            position: new BMap.Point(
+              assignTrack.value[0][0],
+              assignTrack.value[0][1],
+            ),
+            offset: new BMap.Size(0, -210),
+          };
+          const label = new BMap.Label(content, opts);
+
+          label.setStyle({
+            color: "#273849",
+            fontSize: "14px",
+            height: "auto",
+            padding: "0",
+            borderRadius: "6px",
+            border: "0",
+            background: "transparent",
+            boxShadow: "none",
+            fontWeight: "normal",
+            transform: "translateX(-50%)",
+            fontFamily: "微软雅黑",
           });
+          duMap.value.addOverlay(label);
 
-          duMap.value.enableScrollWheelZoom(true);
-          duPoint.value = new BMapGL.Point(
-            assignTrack.value[0][0],
-            assignTrack.value[0][1],
+          const polygonArr = newAssignTrack.map(
+            (item) => new BMap.Point(item[0], item[1]),
           );
-          duMap.value.clearOverlays();
-          const pt = new BMapGL.Point(
-            assignTrack.value[0][0],
-            assignTrack.value[0][1],
-          );
-          const marker = new BMapGL.Marker(pt, { icon: realtimeIco.value });
-          setTimeout(() => {
-            duMap.value.centerAndZoom(duPoint.value, 19);
-            duMap.value.addOverlay(marker);
+          const ps = [];
+          for (const i in polygonArr) {
+            ps.push(new BMap.Point(polygonArr[i].lng, polygonArr[i].lat));
+          }
+          const ply = new BMap.Polygon(ps, {
+            zIndex: 1,
+            visible: true,
+            strokeOpacity: 1,
+            strokeWeight: 2,
+            strokeColor: "#f00",
+            fillColor: "rgba(226,124,124,0.5)",
+            fillOpacity: 0.2,
+          });
+          duMap.value.addOverlay(ply);
 
-            const content = `
-                                        <p  class='labelW xxMes'><img style='width:25px; height:25px' src='${realOnLine.nameIco}'/><span>${proupSs.value.name}</span></p>
-                                        <p  class='labelW xxMes'><img style='width:25px; height:25px' src='${realOnLine.telIco}'/><span>${proupSs.value.tel}</span></p>
-                                        <p  class='labelW xxMes'><img style='width:25px; height:25px' src='${realOnLine.adressIco}'/><span>${proupSs.value.adress}</span></p>
-                                        <div class='backMap'> <button onclick='backMapBig(${assignTrack.value[0][0]},${assignTrack.value[0][1]})'>返回</button></div>
-                                    `;
+          window.backMapBig = () => {
+            elAmap.value = true;
+            superintendentMap.value = false;
+            const returnRegion = localtion.value || axios.waresofeLocation;
+            const returnPoint = new BMap.Point(...getMapCenter(returnRegion));
+            mapPoint.value = returnPoint;
 
-            const opts = {
-              position: new BMapGL.Point(
-                assignTrack.value[0][0],
-                assignTrack.value[0][1],
-              ),
-              offset: new BMapGL.Size(0, -210),
-            };
-            const label = new BMapGL.Label(content, opts);
-
-            label.setStyle({
-              color: "#01ec0c",
-              fontSize: "14px",
-              height: "auto",
-              padding: "5px 6px",
-              borderRadius: "5px",
-              border: "1px solid rgba(255,255,255)",
-              background: "rgba(255,255,255)",
-              fontWeight: "bold",
-              transform: "translateX(-50%)",
-              fontFamily: "微软雅黑",
-            });
-            duMap.value.addOverlay(label);
-
-            const polygonArr = newAssignTrack.map(
-              (item) => new BMapGL.Point(item[0], item[1]),
-            );
-            const ps = [];
-            for (const i in polygonArr) {
-              ps.push(new BMapGL.Point(polygonArr[i].lng, polygonArr[i].lat));
-            }
-            const ply = new BMapGL.Polygon(ps, {
-              zIndex: 1,
-              visible: true,
-              strokeOpacity: 1,
-              strokeWeight: 2,
-              strokeColor: "#f00",
-              fillColor: "rgba(226,124,124,0.5)",
-              fillOpacity: 0.2,
-            });
-            duMap.value.addOverlay(ply);
-
-            window.backMapBig = () => {
-              elAmap.value = true;
-              superintendentMap.value = false;
-              map.value.centerAndZoom(mapPoint.value, 15);
-            };
-          }, 500);
-        }, 2500);
+            setTimeout(() => {
+              map.value?.centerAndZoom?.(returnPoint, getMapZoom(returnRegion));
+              refreshMapData(returnRegion);
+            }, 0);
+          };
+        }, 500);
       } else {
-        fullscreenLoading.value = true;
-        setTimeout(() => {
-          fullscreenLoading.value = false;
-        }, 2000);
-        setTimeout(() => {
-          tsTrack.value = true;
-        }, 2500);
+        tsTrack.value = true;
       }
+    }).catch(() => {
+      fullscreenLoading.value = false;
+      tsTrack.value = true;
     });
   });
 }
 
-function backTrack() {
-  elAmap.value = true;
-  trackElamap.value = false;
-  zoom.value = 13;
-}
-
-function initMap(mapInstance) {
-  console.log("init map: ", mapInstance);
-}
-
-function clickMarker() {
-  alert("12312321321");
-}
 </script>
 <style lang="scss">
 .mapContent {
@@ -957,40 +787,40 @@ function clickMarker() {
 }
 
 .mapRight {
-  width: 300px;
+  width: 320px;
   position: absolute;
-  top: 0;
+  top: 78px;
   right: 20px;
   z-index: 97;
 }
 
 .leftPos {
-  width: 300px;
+  width: 320px;
   position: absolute;
-  top: 0;
+  top: 78px;
   left: 0;
   z-index: 98;
 }
 
-.deviceStatusDialog.el-dialog,
-.deviceStatusDialog .el-dialog {
-  border: 1px solid rgba(30, 144, 255, 0.28);
+.onlinePersonDialog.el-dialog,
+.onlinePersonDialog .el-dialog {
+  border: 1px solid rgba(1, 236, 12, 0.28);
   border-radius: 6px;
   overflow: hidden;
-  background: linear-gradient(180deg, #f8fbff 0%, #ffffff 44%);
-  box-shadow: 0 16px 40px rgba(15, 44, 80, 0.28);
+  background: linear-gradient(180deg, #f8fff9 0%, #ffffff 48%);
+  box-shadow: 0 16px 40px rgba(15, 80, 44, 0.26);
 }
 
-.deviceStatusDialog {
+.onlinePersonDialog {
   .el-dialog__header {
     position: relative;
     margin: 0;
     padding: 18px 52px 12px;
-    border-bottom: 1px solid rgba(41, 151, 255, 0.16);
+    border-bottom: 1px solid rgba(1, 236, 12, 0.16);
   }
 
   .el-dialog__title {
-    color: #1f5f96;
+    color: #137a2b;
     font-size: 18px;
     font-weight: 700;
     letter-spacing: 0;
@@ -1004,7 +834,7 @@ function clickMarker() {
     border-radius: 4px;
 
     &:hover {
-      background: rgba(43, 151, 255, 0.1);
+      background: rgba(1, 236, 12, 0.1);
     }
   }
 
@@ -1013,27 +843,27 @@ function clickMarker() {
   }
 }
 
-.deviceStatusCard {
+.onlinePersonCard {
   color: #273849;
 }
 
-.deviceStatusCard__header {
+.onlinePersonCard__header {
   display: grid;
   grid-template-columns: 12px 1fr auto;
   gap: 14px;
   align-items: center;
   padding: 16px 18px;
-  border: 1px solid rgba(54, 161, 255, 0.18);
+  border: 1px solid rgba(1, 236, 12, 0.2);
   border-radius: 6px;
   background: linear-gradient(
     90deg,
-    rgba(43, 151, 255, 0.1),
-    rgba(1, 236, 12, 0.06)
+    rgba(1, 236, 12, 0.12),
+    rgba(43, 151, 255, 0.08)
   );
 
   strong {
     display: block;
-    color: #183a5a;
+    color: #16492b;
     font-size: 18px;
     font-weight: 700;
     line-height: 24px;
@@ -1041,68 +871,48 @@ function clickMarker() {
 
   p {
     margin: 3px 0 0;
-    color: #7a8b9a;
+    color: #78908a;
     font-size: 13px;
     line-height: 18px;
   }
+
+  em {
+    min-width: 58px;
+    padding: 5px 12px;
+    border-radius: 4px;
+    color: #03a91c;
+    background: rgba(3, 216, 34, 0.12);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    text-align: center;
+  }
 }
 
-.deviceStatusCard__dot {
+.onlinePersonCard__dot {
   width: 10px;
   height: 10px;
   border-radius: 50%;
   background: #03d822;
   box-shadow: 0 0 0 5px rgba(3, 216, 34, 0.12);
-
-  &.is-error {
-    background: #f04747;
-    box-shadow: 0 0 0 5px rgba(240, 71, 71, 0.12);
-  }
-
-  &.is-offline {
-    background: #8b98a8;
-    box-shadow: 0 0 0 5px rgba(139, 152, 168, 0.14);
-  }
 }
 
-.deviceStatusCard__tag {
-  min-width: 58px;
-  padding: 5px 12px;
-  border-radius: 4px;
-  color: #03a91c;
-  background: rgba(3, 216, 34, 0.12);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 700;
-  text-align: center;
-
-  &.is-error {
-    color: #d93636;
-    background: rgba(240, 71, 71, 0.12);
-  }
-
-  &.is-offline {
-    color: #6f7d8e;
-    background: rgba(139, 152, 168, 0.14);
-  }
-}
-
-.deviceStatusCard__list {
+.onlinePersonCard__list {
   margin-top: 14px;
-  border: 1px solid rgba(54, 161, 255, 0.14);
+  border: 1px solid rgba(1, 236, 12, 0.14);
   border-radius: 6px;
   overflow: hidden;
-  background: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.9);
 }
 
-.deviceStatusCard__item {
+.onlinePersonCard__item {
   display: grid;
   grid-template-columns: 38px 1fr;
   gap: 12px;
   align-items: center;
   min-height: 64px;
   padding: 11px 16px;
-  border-bottom: 1px solid rgba(54, 161, 255, 0.12);
+  border-bottom: 1px solid rgba(1, 236, 12, 0.12);
 
   &:last-child {
     border-bottom: 0;
@@ -1138,6 +948,282 @@ function clickMarker() {
     font-weight: 600;
     line-height: 22px;
     word-break: break-all;
+  }
+}
+
+.onlinePersonCard__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 42px;
+  margin-top: 14px;
+  border: 1px solid rgba(1, 236, 12, 0.32);
+  border-radius: 6px;
+  color: #03a91c;
+  background: rgba(1, 236, 12, 0.08);
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+
+  img {
+    width: 22px;
+    height: 22px;
+  }
+
+  &:hover {
+    background: rgba(1, 236, 12, 0.16);
+    box-shadow: 0 8px 18px rgba(1, 180, 35, 0.14);
+    transform: translateY(-1px);
+  }
+}
+
+.trackQueryDialog.el-dialog,
+.trackQueryDialog .el-dialog {
+  border: 1px solid rgba(1, 236, 12, 0.24);
+  border-radius: 6px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #f8fff9 0%, #ffffff 48%);
+  box-shadow: 0 16px 40px rgba(15, 80, 44, 0.24);
+}
+
+.trackQueryDialog {
+  .el-dialog__header {
+    position: relative;
+    margin: 0;
+    padding: 18px 52px 12px;
+    border-bottom: 1px solid rgba(1, 236, 12, 0.16);
+  }
+
+  .el-dialog__title {
+    color: #137a2b;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: 0;
+  }
+
+  .el-dialog__headerbtn {
+    top: 15px;
+    right: 18px;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+
+    &:hover {
+      background: rgba(1, 236, 12, 0.1);
+    }
+  }
+
+  .el-dialog__body {
+    padding: 18px 24px 24px;
+  }
+}
+
+.trackQueryCard {
+  position: relative;
+  color: #273849;
+}
+
+.trackQueryCard__loading {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  border-radius: 6px;
+  background: rgba(248, 255, 249, 0.86);
+  backdrop-filter: blur(2px);
+
+  span {
+    width: 34px;
+    height: 34px;
+    border: 3px solid rgba(3, 216, 34, 0.18);
+    border-top-color: #03d822;
+    border-radius: 50%;
+    animation: track-query-spin 0.9s linear infinite;
+  }
+
+  p {
+    margin: 0;
+    color: #137a2b;
+    font-size: 14px;
+    font-weight: 700;
+  }
+}
+
+.trackQueryCard__header {
+  display: grid;
+  grid-template-columns: 12px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 16px 18px;
+  border: 1px solid rgba(1, 236, 12, 0.18);
+  border-radius: 6px;
+  background: linear-gradient(
+    90deg,
+    rgba(1, 236, 12, 0.12),
+    rgba(43, 151, 255, 0.08)
+  );
+
+  strong {
+    display: block;
+    color: #16492b;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 24px;
+  }
+
+  p {
+    margin: 3px 0 0;
+    color: #78908a;
+    font-size: 13px;
+    line-height: 18px;
+  }
+}
+
+.trackQueryCard__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #03d822;
+  box-shadow: 0 0 0 5px rgba(3, 216, 34, 0.12);
+}
+
+.trackQueryCard__form {
+  margin-top: 14px;
+  padding: 18px 18px 4px;
+  border: 1px solid rgba(1, 236, 12, 0.14);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.9);
+
+  .el-form-item {
+    margin-bottom: 18px;
+  }
+
+  .el-form-item__label {
+    color: #60776f;
+    font-weight: 600;
+  }
+
+  .el-input__wrapper {
+    border-radius: 6px;
+    box-shadow: 0 0 0 1px rgba(1, 236, 12, 0.16) inset;
+
+    &.is-focus {
+      box-shadow: 0 0 0 1px rgba(1, 180, 35, 0.45) inset;
+    }
+  }
+}
+
+@keyframes track-query-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.trackQueryCard__button.el-button {
+  min-width: 112px;
+  height: 38px;
+  border: 1px solid rgba(1, 200, 30, 0.6);
+  border-radius: 6px;
+  color: #fff;
+  background: linear-gradient(90deg, #04c927, #18b778);
+  font-size: 15px;
+  font-weight: 700;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    border-color: rgba(1, 180, 35, 0.75);
+    background: linear-gradient(90deg, #05d72d, #20c785);
+    box-shadow: 0 8px 18px rgba(1, 180, 35, 0.16);
+  }
+}
+
+.trackResultCard {
+  position: relative;
+  width: 260px;
+  padding: 14px 14px 16px;
+  border: 1px solid rgba(1, 236, 12, 0.22);
+  border-radius: 6px;
+  background: linear-gradient(180deg, #f8fff9 0%, #ffffff 58%);
+  box-shadow: 0 12px 28px rgba(15, 80, 44, 0.22);
+  color: #263747;
+  box-sizing: border-box;
+}
+
+.trackResultCard__status {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #03d822;
+  box-shadow: 0 0 0 5px rgba(3, 216, 34, 0.12);
+}
+
+.trackResultCard__item {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  gap: 10px;
+  align-items: center;
+  min-height: 34px;
+  margin-bottom: 8px;
+
+  span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 6px;
+    background: rgba(1, 236, 12, 0.1);
+  }
+
+  img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
+
+  strong {
+    display: block;
+    color: #16492b;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    max-height: 40px;
+    overflow: hidden;
+    word-break: break-all;
+    overflow-wrap: anywhere;
+  }
+}
+
+.trackResultCard__button {
+  display: block;
+  width: 118px;
+  height: 36px;
+  margin: 10px auto 0;
+  border: 1px solid rgba(1, 200, 30, 0.6);
+  border-radius: 6px;
+  color: #fff;
+  background: linear-gradient(90deg, #04c927, #18b778);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    background: linear-gradient(90deg, #05d72d, #20c785);
+    box-shadow: 0 8px 18px rgba(1, 180, 35, 0.16);
   }
 }
 

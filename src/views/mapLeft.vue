@@ -4,7 +4,7 @@
     <div class="styleCss normal">
       <div class="styleCssTitle lvs">
         <img
-          src="../assets/images/ligang.svg"
+          src="../assets/images/icon-region-filter.svg"
           alt=""
           style="height: 20px; width: 20px"
         />
@@ -14,7 +14,8 @@
         <div>
           <el-select
             v-model="disnameValue"
-            @change="emit('changeDisname', disnameValue)"
+            @change="handleDisnameChange"
+            @clear="handleDisnameClear"
             clearable
             size="small"
             placement="bottom-start"
@@ -23,7 +24,15 @@
             placeholder="请选择区域"
           >
             <el-option
-              v-for="item in ['总公司', '涪城', '安州', '广汉', '射洪', '南充', '成华']"
+              v-for="item in [
+                '四川',
+                '涪城',
+                '安州',
+                '广汉',
+                '射洪',
+                '南充',
+                '成华',
+              ]"
               :key="item"
               :label="item"
               :value="item"
@@ -34,7 +43,7 @@
       </div>
       <div class="styleCssTitle lvs">
         <img
-          src="../assets/images/ligang.svg"
+          src="../assets/images/icon-region-filter.svg"
           alt=""
           style="height: 20px; width: 20px"
         />
@@ -82,14 +91,14 @@
       </div>
 
       <!-- <div class="styleCssTitle lvs">
-        <img src="../assets/images/poinDw.svg" alt=""> <span>按日期查询正常在岗时间</span>
+        <img src="../assets/images/icon-attendance-time.svg" alt=""> <span>按日期查询正常在岗时间</span>
       </div> -->
 
       <!--/查询当日正常在岗时间-->
 
       <!--/当日不在点位人员-->
       <!-- <div class="styleCssTitle lvs">
-        <img src="../assets/images/ligang.svg" alt=""> <span>查询
+        <img src="../assets/images/icon-region-filter.svg" alt=""> <span>查询
           
           当日不在点位人员</span>
       </div>
@@ -104,7 +113,7 @@
 
       <!--/长时间不移动人员-->
       <!-- <div class="styleCssTitle lvs">
-        <img src="../assets/images/ligang.svg" alt=""> <span>当日长时间不移动人员</span>
+        <img src="../assets/images/icon-region-filter.svg" alt=""> <span>当日长时间不移动人员</span>
       </div>
 
       <div class="searchDdy">
@@ -122,7 +131,8 @@
       :style="{ backgroundImage: `url(${borderImg3})` }"
     >
       <div class="styleCssTitle">
-        <img src="../assets/images/zc.svg" alt="" /> <span>总设备数量</span>
+        <img src="../assets/images/icon-status-normal.svg" alt="" />
+        <span>总设备数量</span>
         <em class="onlineStyle"
           ><em style="color: #4d4d4d">{{ deviceCount }}</em
           >台</em
@@ -135,7 +145,8 @@
       :style="{ backgroundImage: `url(${borderImg})` }"
     >
       <div class="styleCssTitle">
-        <img src="../assets/images/zc.svg" alt="" /> <span>正常运行设备</span>
+        <img src="../assets/images/icon-status-normal.svg" alt="" />
+        <span>正常运行设备</span>
         <em class="onlineStyle"
           ><em style="color: #4d4d4d">{{ deviceList.length }}</em
           >台</em
@@ -163,17 +174,18 @@
     </div>
 
     <div
-      class="styleCss normal"
-      :style="{ backgroundImage: `url(${borderImg})` }"
+      class="styleCss normal is-offline-device"
+      :style="{ backgroundImage: `url(${borderImg3})` }"
     >
-      <div class="styleCssTitle">
-        <img src="../assets/images/zc.svg" alt="" /> <span>离线设备</span>
+      <div class="styleCssTitle bzDcolor">
+        <img src="../assets/images/icon-person-off-duty.svg" alt="" />
+        <span>离线设备</span>
         <em class="onlineStyle"
           ><em style="color: #4d4d4d">{{ offlineDeviceList.length }}</em
           >台</em
         >
       </div>
-      <div class="zcNormal zcline">
+      <div class="zcNormal offlineLine">
         <div class="zcNormaltitle">
           <span>离线设备名称</span>
         </div>
@@ -204,15 +216,19 @@
     >
       <div class="superintendent">
         <!-- <p>
-                            <span><img src="../assets/images/zcName.png" alt="" /></span
+                            <span><img src="../assets/images/icon-online-name.png" alt="" /></span
                             >{{ proupSs.name }}
                             </p>-->
         <p>
-          <span><img src="../assets/images/redTel.png" alt="" /></span
+          <span
+            ><img src="../assets/images/icon-off-duty-phone.png" alt="" /></span
           >{{ noDataPoint.tel }}
         </p>
         <p>
-          <span><img src="../assets/images/redAdress.png" alt="" /></span
+          <span
+            ><img
+              src="../assets/images/icon-off-duty-address.png"
+              alt="" /></span
           >{{ noDataPoint.adress }}
         </p>
         <p>
@@ -233,15 +249,18 @@
     >
       <div class="superintendent">
         <!-- <p>
-                            <span><img src="../assets/images/zcName.png" alt="" /></span
+                            <span><img src="../assets/images/icon-online-name.png" alt="" /></span
                             >{{ proupSs.name }}
                             </p>-->
         <p>
-          <span><img src="../assets/images/orangeTel.png" alt="" /></span
+          <span
+            ><img
+              src="../assets/images/icon-stationary-phone.png"
+              alt="" /></span
           >{{ noDataPoint.tel }}
         </p>
         <!-- <p>
-          <span><img src="../assets/images/orangeAdress.png" alt="" /></span>{{ noDataPoint.adress }}
+          <span><img src="../assets/images/icon-stationary-address.png" alt="" /></span>{{ noDataPoint.adress }}
         </p> -->
         <p v-if="noDataPoint.username">
           姓名:<em style="color: #f75d00; font-style: normal">
@@ -478,7 +497,7 @@
       v-model="dataLoading"
       :close-on-click-modal="false"
       :show-close="false"
-      width="30%"
+      width="340px"
       custom-class="bgColor"
     >
       <AnimCss :textLoad="textLoad"></AnimCss>
@@ -502,6 +521,8 @@ import {
 } from "@/api/api";
 import axios from "@/utils/request";
 import AnimCss from "../components/animCss/index.vue";
+import { getBMapGL } from "@/utils/baiduMap";
+import { getRegionKeyword } from "@/utils/mapConfig";
 
 const props = defineProps({
   getCurrent: {
@@ -567,18 +588,18 @@ const dateSearch = ref("");
 const dateSearchPoint = ref("");
 const pointLists = ref([]);
 const noPointShow = ref(false);
-const borderImg = assetUrl("border4.png");
-const borderImg2 = assetUrl("border5.png");
-const borderImg3 = assetUrl("border2.png");
+const borderImg = assetUrl("panel-border-green.png");
+const borderImg2 = assetUrl("panel-border-blue-soft.png");
+const borderImg3 = assetUrl("panel-border-blue.png");
 const absent = ref([]);
 const longTime = ref([]);
 const timer = ref(null);
 const absentpoint = ref(null);
 const longtimepoint = ref(null);
-const iconLsRed = assetUrl("red.png");
-const iconLOrange = assetUrl("orange.png");
-const zbLsRed = assetUrl("wsxRed.png");
-const zbLsOrange = assetUrl("zborange.png");
+const iconLsRed = assetUrl("marker-person-off-duty-label.png");
+const iconLOrange = assetUrl("marker-person-stationary-label.png");
+const zbLsRed = assetUrl("marker-person-off-duty.png");
+const zbLsOrange = assetUrl("marker-person-stationary.png");
 const bzdProup = ref(false);
 const longtimeProup = ref(false);
 const noDataPoint = ref({});
@@ -612,7 +633,7 @@ const startTime = ref(undefined);
 const endTime = ref(undefined);
 
 const classOption = computed(() => ({
-  step: 0.7,
+  step: 0.25,
   limitMoveNum: 5,
   hoverStop: true,
   direction: 1,
@@ -627,23 +648,35 @@ const classOption = computed(() => ({
 }));
 
 function currentLocation(name) {
-  return name || props.localtion || disnameValue.value || axios.waresofeLocation;
+  return (
+    name || props.localtion || disnameValue.value || axios.waresofeLocation
+  );
+}
+
+function handleDisnameChange(value) {
+  if (!value) {
+    return;
+  }
+
+  emit("changeDisname", value);
+}
+
+function handleDisnameClear() {
+  disnameValue.value = "";
 }
 
 function ensureMarkerIcons() {
-  if (typeof BMapGL === "undefined") {
+  const BMap = getBMapGL();
+  if (!BMap) {
     return;
   }
 
   if (!absentpoint.value) {
-    absentpoint.value = new BMapGL.Icon(zbLsRed, new BMapGL.Size(18, 30));
+    absentpoint.value = new BMap.Icon(zbLsRed, new BMap.Size(18, 30));
   }
 
   if (!longtimepoint.value) {
-    longtimepoint.value = new BMapGL.Icon(
-      zbLsOrange,
-      new BMapGL.Size(18, 30),
-    );
+    longtimepoint.value = new BMap.Icon(zbLsOrange, new BMap.Size(18, 30));
   }
 }
 
@@ -815,15 +848,9 @@ function searchDdyBtn() {
       }
 
       let list = Object.values(res);
-      if (region !== "总公司") {
-        list = list.filter(
-          (item) =>
-            item.indexOf(
-              region !== "涪城" && region !== "安州" && region !== "成华"
-                ? "四川省" + region
-                : region,
-            ) > -1,
-        );
+      const regionKeyword = getRegionKeyword(region);
+      if (regionKeyword) {
+        list = list.filter((item) => item.indexOf(regionKeyword) > -1);
       }
 
       for (const i in list) {
@@ -920,15 +947,9 @@ function getNotInLoaction(name) {
     if (Object.keys(res || {}).length) {
       const phones = Object.keys(res);
       let vals = Object.values(res);
-      if (region !== "总公司") {
-        vals = vals.filter(
-          (item) =>
-            item.indexOf(
-              region !== "涪城" && region !== "安州" && region !== "成华"
-                ? "四川省" + region
-                : region,
-            ) > -1,
-        );
+      const regionKeyword = getRegionKeyword(region);
+      if (regionKeyword) {
+        vals = vals.filter((item) => item.indexOf(regionKeyword) > -1);
       }
 
       absent.value = vals
@@ -945,12 +966,13 @@ function getNotInLoaction(name) {
         .filter(Boolean);
 
       absent.value.forEach((item) => {
-        if (!parentMap.value || !absentpoint.value) {
+        const BMap = getBMapGL();
+        if (!parentMap.value || !absentpoint.value || !BMap) {
           return;
         }
 
-        const pt = new BMapGL.Point(item.lng, item.lat);
-        const marker = new BMapGL.Marker(pt, { icon: absentpoint.value });
+        const pt = new BMap.Point(item.lng, item.lat);
+        const marker = new BMap.Marker(pt, { icon: absentpoint.value });
         parentMap.value.addOverlay(marker);
         marker.addEventListener("click", function () {
           window.noAbsentPoint(item);
@@ -1000,12 +1022,13 @@ function getWorkerstatusStaytime(name) {
       .filter(Boolean);
 
     longTime.value.forEach((item) => {
-      if (!parentMap.value || !longtimepoint.value) {
+      const BMap = getBMapGL();
+      if (!parentMap.value || !longtimepoint.value || !BMap) {
         return;
       }
 
-      const pt = new BMapGL.Point(item.lng, item.lat);
-      const marker = new BMapGL.Marker(pt, { icon: longtimepoint.value });
+      const pt = new BMap.Point(item.lng, item.lat);
+      const marker = new BMap.Marker(pt, { icon: longtimepoint.value });
       parentMap.value.addOverlay(marker);
       marker.addEventListener("click", function () {
         window.longtimePoint(item);
@@ -1084,12 +1107,58 @@ defineExpose({
 </script>
 
 <style lang="scss">
+.leftPos {
+  .mapHeight {
+    gap: 18px;
+  }
+
+  .styleCss:first-child {
+    min-height: 160px;
+    padding-top: 6px;
+  }
+
+  .searchDdy {
+    margin: 2px 8px 10px;
+  }
+
+  .styleCss:nth-child(2) {
+    min-height: 52px;
+  }
+
+  .styleCss:nth-child(3),
+  .styleCss:nth-child(4) {
+    min-height: 150px;
+  }
+
+  .offlineLine {
+    .zcNormaltitle {
+      border-bottom: 1px solid #ff0000;
+      background: #ff0000;
+    }
+
+    li > span {
+      color: #ff0000;
+    }
+  }
+
+  .is-offline-device {
+    .styleCssTitle > span,
+    .onlineStyle > em {
+      color: #ff0000 !important;
+    }
+  }
+
+  .seamless-warp {
+    max-height: 84px;
+  }
+}
+
 .zcUl1 {
   > li {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 1.8rem;
+    height: 28px;
     border-top: 1px solid #efefef;
 
     > span {

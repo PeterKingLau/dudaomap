@@ -19,11 +19,6 @@
   dependencies:
     "@babel/types" "^7.29.7"
 
-"@babel/runtime@^7.12.0":
-  version "7.29.7"
-  resolved "https://registry.npmmirror.com/@babel/runtime/-/runtime-7.29.7.tgz#12022450c45a4da6d8d8287b18a4ff2ddb23f768"
-  integrity sha512-Nq8OhGWiZIZGV6hLHoyAKLLcJihP/xFeBMGJoUrxTX2psI8dCifzLhZISFb+VWS3wFMRDmCGw5R+dOySCqPLhw==
-
 "@babel/types@^7.29.7":
   version "7.29.7"
   resolved "https://registry.npmmirror.com/@babel/types/-/types-7.29.7.tgz#8005e31d82712ee7adaef6e23c63b71a62770a92"
@@ -117,20 +112,6 @@
   dependencies:
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
-
-"@math.gl/core@3.6.3":
-  version "3.6.3"
-  resolved "https://registry.npmmirror.com/@math.gl/core/-/core-3.6.3.tgz#a6bf796ed421093099749d609de8d99a3ac20a53"
-  integrity sha512-jBABmDkj5uuuE0dTDmwwss7Cup5ZwQ6Qb7h1pgvtkEutTrhkcv8SuItQNXmF45494yIHeoGue08NlyeY6wxq2A==
-  dependencies:
-    "@babel/runtime" "^7.12.0"
-    "@math.gl/types" "3.6.3"
-    gl-matrix "^3.4.0"
-
-"@math.gl/types@3.6.3":
-  version "3.6.3"
-  resolved "https://registry.npmmirror.com/@math.gl/types/-/types-3.6.3.tgz#9fa9866feabcbb76de107d78ff3a89c0243ac374"
-  integrity sha512-3uWLVXHY3jQxsXCr/UCNPSc2BG0hNUljhmOBt9l+lNFDp7zHgm0cK2Tw4kj2XfkJy4TgwZTBGwRDQgWEbLbdTA==
 
 "@napi-rs/wasm-runtime@^1.1.4":
   version "1.1.4"
@@ -322,27 +303,6 @@
   resolved "https://registry.npmmirror.com/@rolldown/pluginutils/-/pluginutils-1.0.1.tgz#e3fcee093fbb5ce765e1ad088ff4de2889f6f9be"
   integrity sha512-2j9bGt5Jh8hj+vPtgzPtl72j0yRxHAyumoo6TNfAjsLB04UtpSvPbPcDcBMxz7n+9CYB0c1GxQFxYRg2jimqGw==
 
-"@turf/helpers@^6.5.0":
-  version "6.5.0"
-  resolved "https://registry.npmmirror.com/@turf/helpers/-/helpers-6.5.0.tgz#f79af094bd6b8ce7ed2bd3e089a8493ee6cae82e"
-  integrity sha512-VbI1dV5bLFzohYYdgqwikdMVpe7pJ9X3E+dlr425wa2/sMJqYDhTO++ec38/pcPvPE6oD9WEEeU3Xu3gza+VPw==
-
-"@turf/intersect@^6.5.0":
-  version "6.5.0"
-  resolved "https://registry.npmmirror.com/@turf/intersect/-/intersect-6.5.0.tgz#a14e161ddd0264d0f07ac4e325553c70c421f9e6"
-  integrity sha512-2legGJeKrfFkzntcd4GouPugoqPUjexPZnOvfez+3SfIMrHvulw8qV8u7pfVyn2Yqs53yoVCEjS5sEpvQ5YRQg==
-  dependencies:
-    "@turf/helpers" "^6.5.0"
-    "@turf/invariant" "^6.5.0"
-    polygon-clipping "^0.15.3"
-
-"@turf/invariant@^6.5.0":
-  version "6.5.0"
-  resolved "https://registry.npmmirror.com/@turf/invariant/-/invariant-6.5.0.tgz#970afc988023e39c7ccab2341bd06979ddc7463f"
-  integrity sha512-Wv8PRNCtPD31UVbdJE/KVAWKe7l6US+lJItRR/HOEW3eh+U/JwRCSUl/KZ7bmjM/C+zLNoreM2TU6OoLACs4eg==
-  dependencies:
-    "@turf/helpers" "^6.5.0"
-
 "@tybys/wasm-util@^0.10.1":
   version "0.10.2"
   resolved "https://registry.npmmirror.com/@tybys/wasm-util/-/wasm-util-0.10.2.tgz#12b3a1b33db1f9cad4ddff1f604ab7dd00bf464e"
@@ -486,51 +446,6 @@
   resolved "https://registry.npmmirror.com/@vue/shared/-/shared-3.5.35.tgz#192eb3d720c40715db79313454c4937432a4e86d"
   integrity sha512-zSbjL7gRXwks2ZQLRGCajBtBXEOXW9Ddhn/HvSdrGkE2dqGnumzW8XtusRrxrE9LvqtiqDXQ+A60Hp6mvdYxfA==
 
-"@vuemap/amap-jsapi-loader@1.0.4":
-  version "1.0.4"
-  resolved "https://registry.npmmirror.com/@vuemap/amap-jsapi-loader/-/amap-jsapi-loader-1.0.4.tgz#699fc44eda74306ed489e9873d633f820cdac29a"
-  integrity sha512-s5fFHrsNkjYMovEmUJ5S23jpDtElTanDN2HdCt/amOD245a8wWVcTPjl06YEHXtxf6Ewm+z29wQByOCn209Hxg==
-
-"@vuemap/amap-jsapi-types@^0.0.16":
-  version "0.0.16"
-  resolved "https://registry.npmmirror.com/@vuemap/amap-jsapi-types/-/amap-jsapi-types-0.0.16.tgz#74f9d381d519fe1ce49b0ae8fe103f7213b1e5c2"
-  integrity sha512-1B1H2IS8sT2RDubbpEY+K8j11Gb7PZY5Bo0cszRkF8Nw+9HNqpbUNeqkQ6+rxLkwIedcSkOsFDy/IyzXCUXqVw==
-
-"@vuemap/amap-jsapi-types@^0.0.17":
-  version "0.0.17"
-  resolved "https://registry.npmmirror.com/@vuemap/amap-jsapi-types/-/amap-jsapi-types-0.0.17.tgz#3f21674520a97785388885a1b19c68acacaeb20e"
-  integrity sha512-FHI8OMWxJWbgyuQ0tKclvurQIVHRexMIYAOwZ/z9+G7aHHK5EFhKM13siLczNNAgXdJ2dctPEghCdlhcByl3Ag==
-
-"@vuemap/amap-xyz-layer@0.0.15":
-  version "0.0.15"
-  resolved "https://registry.npmmirror.com/@vuemap/amap-xyz-layer/-/amap-xyz-layer-0.0.15.tgz#086cdc86559eba10d191de99bdc97fafe9216f89"
-  integrity sha512-L3rsgk2+i277RlMScpxVpjPBhSfMCeHcyFv7zkomMzd/J9W+X8yTUgSFvzVLWnnlXEXL80vNgs7lIJpSxa5vNg==
-  dependencies:
-    "@math.gl/core" "3.6.3"
-    earcut "2.2.4"
-    gl-matrix "3.4.3"
-
-"@vuemap/district-cluster@0.0.12":
-  version "0.0.12"
-  resolved "https://registry.npmmirror.com/@vuemap/district-cluster/-/district-cluster-0.0.12.tgz#8af86c7edcc6777c9fc1b2f6216b1650fab5e82b"
-  integrity sha512-JmZxl99PfCsF98dvxTmi17Ti3XaQMwcKidgduiIQvAPNTKmZjBAR1RRtdQjxooIuJiLXJo9itWIRuBaD9MseTQ==
-  dependencies:
-    "@turf/helpers" "^6.5.0"
-    "@turf/intersect" "^6.5.0"
-    "@vuemap/amap-jsapi-types" "^0.0.16"
-    topojson-client "3.1.0"
-
-"@vuemap/vue-amap@^2.1.15":
-  version "2.1.17"
-  resolved "https://registry.npmmirror.com/@vuemap/vue-amap/-/vue-amap-2.1.17.tgz#c2b54c554abd20f9965458db8685a1d2379df3a4"
-  integrity sha512-DzdFqRTo3p8YTxN/P0mCwhlAOmLHMN68e0JeAKux40qZTFJ9/2CNFoBkRLj6yRQ//9o/tLvOaqZVjJyfQpDkwA==
-  dependencies:
-    "@vuemap/amap-jsapi-loader" "1.0.4"
-    "@vuemap/amap-jsapi-types" "^0.0.17"
-    "@vuemap/amap-xyz-layer" "0.0.15"
-    "@vuemap/district-cluster" "0.0.12"
-    lodash-es "^4.17.21"
-
 "@vueuse/core@14.3.0":
   version "14.3.0"
   resolved "https://registry.npmmirror.com/@vueuse/core/-/core-14.3.0.tgz#66c92f9ad7ee989e4a8fd23ec368e55429ea42b2"
@@ -614,7 +529,7 @@ combined-stream@^1.0.8:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@2, commander@^2.20.0:
+commander@^2.20.0:
   version "2.20.3"
   resolved "https://registry.npmmirror.com/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
@@ -671,11 +586,6 @@ dunder-proto@^1.0.1:
     call-bind-apply-helpers "^1.0.1"
     es-errors "^1.3.0"
     gopd "^1.2.0"
-
-earcut@2.2.4:
-  version "2.2.4"
-  resolved "https://registry.npmmirror.com/earcut/-/earcut-2.2.4.tgz#6d02fd4d68160c114825d06890a92ecaae60343a"
-  integrity sha512-/pjZsA1b4RPHbeWZQn66SWS8nZZWLQQ23oE3Eam7aroEFGEvwKAsJfZ9ytiEMycfzXWpca4FA9QIOehf7PocBQ==
 
 element-plus@^2.13.6:
   version "2.14.1"
@@ -794,16 +704,6 @@ get-proto@^1.0.1:
   dependencies:
     dunder-proto "^1.0.1"
     es-object-atoms "^1.0.0"
-
-gl-matrix@3.4.3:
-  version "3.4.3"
-  resolved "https://registry.npmmirror.com/gl-matrix/-/gl-matrix-3.4.3.tgz#fc1191e8320009fd4d20e9339595c6041ddc22c9"
-  integrity sha512-wcCp8vu8FT22BnvKVPjXa/ICBWRq/zjFfdofZy1WSpQZpphblv12/bOQLBC1rMM7SGOFS9ltVmKOHil5+Ml7gA==
-
-gl-matrix@^3.4.0:
-  version "3.4.4"
-  resolved "https://registry.npmmirror.com/gl-matrix/-/gl-matrix-3.4.4.tgz#7789ee4982f62c7a7af447ee488f3bd6b0c77003"
-  integrity sha512-latSnyDNt/8zYUB6VIJ6PCh2jBjJX6gnDsoCZ7LyW7GkqrD51EWwa9qCoGixj8YqBtETQK/xY7OmpTF8xz1DdQ==
 
 gopd@^1.2.0:
   version "1.2.0"
@@ -938,7 +838,7 @@ lightningcss@^1.32.0:
     lightningcss-win32-arm64-msvc "1.32.0"
     lightningcss-win32-x64-msvc "1.32.0"
 
-lodash-es@^4.17.21, lodash-es@^4.18.1:
+lodash-es@^4.18.1:
   version "4.18.1"
   resolved "https://registry.npmmirror.com/lodash-es/-/lodash-es-4.18.1.tgz#b962eeb80d9d983a900bf342961fb7418ca10b1d"
   integrity sha512-J8xewKD/Gk22OZbhpOVSwcs60zhd95ESDwezOFuA3/099925PdHJ7OFHNTGtajL3AlZkykD32HykiMo+BIBI8A==
@@ -1036,14 +936,6 @@ pinia@^3.0.3:
   dependencies:
     "@vue/devtools-api" "^7.7.7"
 
-polygon-clipping@^0.15.3:
-  version "0.15.7"
-  resolved "https://registry.npmmirror.com/polygon-clipping/-/polygon-clipping-0.15.7.tgz#3823ca1e372566f350795ce9dd9a7b19e97bdaad"
-  integrity sha512-nhfdr83ECBg6xtqOAJab1tbksbBAOMUltN60bU+llHVOL0e5Onm1WpAXXWXVB39L8AJFssoIhEVuy/S90MmotA==
-  dependencies:
-    robust-predicates "^3.0.2"
-    splaytree "^3.1.0"
-
 postcss@^8.5.15:
   version "8.5.15"
   resolved "https://registry.npmmirror.com/postcss/-/postcss-8.5.15.tgz#d1eaf677a324e9ec02196da2d3fecf4a0b9a735c"
@@ -1067,11 +959,6 @@ rfdc@^1.4.1:
   version "1.4.1"
   resolved "https://registry.npmmirror.com/rfdc/-/rfdc-1.4.1.tgz#778f76c4fb731d93414e8f925fbecf64cce7f6ca"
   integrity sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA==
-
-robust-predicates@^3.0.2:
-  version "3.0.3"
-  resolved "https://registry.npmmirror.com/robust-predicates/-/robust-predicates-3.0.3.tgz#1099061b3349e2c5abec6c2ab0acd440d24d4062"
-  integrity sha512-NS3levdsRIUOmiJ8FZWCP7LG3QpJyrs/TE0Zpf1yvZu8cAJJ6QMW92H1c7kWpdIHo8RvmLxN/o2JXTKHp74lUA==
 
 rolldown@1.0.3:
   version "1.0.3"
@@ -1131,11 +1018,6 @@ speakingurl@^14.0.1:
   resolved "https://registry.npmmirror.com/speakingurl/-/speakingurl-14.0.1.tgz#f37ec8ddc4ab98e9600c1c9ec324a8c48d772a53"
   integrity sha512-1POYv7uv2gXoyGFpBCmpDVSNV74IfsWlDW216UPjbWufNf+bSU6GdbDsxdcxtfwb4xlI3yxzOTKClUosxARYrQ==
 
-splaytree@^3.1.0:
-  version "3.2.3"
-  resolved "https://registry.npmmirror.com/splaytree/-/splaytree-3.2.3.tgz#5e4836bc54cc939344bba8dc826f82fbde453106"
-  integrity sha512-7OXrNWzy6CK+r7Ch9OLPBDTKfB6XlWHjX4P0RU5B3IgFuWPeYN0XtRtlexGRjgbQxpfaUve6jTAwBGWuGntz/w==
-
 superjson@^2.2.2:
   version "2.2.6"
   resolved "https://registry.npmmirror.com/superjson/-/superjson-2.2.6.tgz#a223a3a988172a5f9656e2063fe5f733af40d099"
@@ -1160,13 +1042,6 @@ tinyglobby@^0.2.17:
   dependencies:
     fdir "^6.5.0"
     picomatch "^4.0.4"
-
-topojson-client@3.1.0:
-  version "3.1.0"
-  resolved "https://registry.npmmirror.com/topojson-client/-/topojson-client-3.1.0.tgz#22e8b1ed08a2b922feeb4af6f53b6ef09a467b99"
-  integrity sha512-605uxS6bcYxGXw9qi62XyrV6Q3xwbndjachmNxu8HWTtVPxZfEJN9fd/SZS1Q54Sn2y0TMyMxFj/cJINqGHrKw==
-  dependencies:
-    commander "2"
 
 tslib@^2.4.0:
   version "2.8.1"

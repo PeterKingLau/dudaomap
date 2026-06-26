@@ -1,65 +1,118 @@
-import axios from 'axios';
-//设置axios
-    let waresofeLocation = '涪城' //打包区域端
-const service=axios.create({
-    timeout:1000*6000,
-    baseURL:import.meta.env.VITE_BASE_URL_HTTPS
-   //baseURL:'/api',//对axios发送的请求路径进行集中设置
+import axios from 'axios'
+
+const waresofeLocation = '四川'
+const MAX_CONCURRENT_REQUESTS = 6
+
+const service = axios.create({
+  timeout: 1000 * 6000,
+  baseURL: import.meta.env.VITE_BASE_URL_HTTPS,
 })
 
-//封装post请求
-let post=function(url,data_={}){
-    return new Promise((resolve,reject)=>{
-        data_ = {
-            ...{disname:waresofeLocation},
-            ...data_
-        }
-        service.post(url,data_).then((res)=>{
-           
-            return resolve(res)
-        }).catch((err)=>{
-            return reject(err)
-        })
-    })
+const pendingRequests = new Map()
+const requestQueue = []
+let activeRequestCount = 0
+
+function normalizePayload(payload = {}) {
+  return {
+    disname: waresofeLocation,
+    ...payload,
+  }
 }
 
-//封装get请求
-let get=function(url,params){
-    params = {
-        ...{disname:waresofeLocation},
-        ...params
+function stableStringify(value) {
+  if (value === null || typeof value !== 'object') {
+    return JSON.stringify(value)
+  }
+
+  if (Array.isArray(value)) {
+    return `[${value.map(stableStringify).join(',')}]`
+  }
+
+  return `{${Object.keys(value)
+    .sort()
+    .map((key) => `${JSON.stringify(key)}:${stableStringify(value[key])}`)
+    .join(',')}}`
+}
+
+function getRequestKey(method, url, payload) {
+  return `${method.toUpperCase()}::${url}::${stableStringify(payload)}`
+}
+
+function runNextRequest() {
+  while (
+    activeRequestCount < MAX_CONCURRENT_REQUESTS &&
+    requestQueue.length > 0
+  ) {
+    const { task, resolve, reject } = requestQueue.shift()
+    activeRequestCount += 1
+
+    task()
+      .then(resolve)
+      .catch(reject)
+      .finally(() => {
+        activeRequestCount -= 1
+        runNextRequest()
+      })
+  }
+}
+
+function enqueueRequest(task) {
+  return new Promise((resolve, reject) => {
+    requestQueue.push({ task, resolve, reject })
+    runNextRequest()
+  })
+}
+
+function request(method, url, payload = {}) {
+  const data = normalizePayload(payload)
+  const requestKey = getRequestKey(method, url, data)
+
+  if (pendingRequests.has(requestKey)) {
+    return pendingRequests.get(requestKey)
+  }
+
+  const task = () => {
+    if (method === 'get') {
+      return service.get(url, { params: data })
     }
-    return new Promise((resolve,reject)=>{
-        service.get(url,{params},
-            ).then((res)=>{
-            return resolve(res)
-        }).catch((err)=>{
-            return reject(err)
-        })
-    })
+
+    return service.post(url, data)
+  }
+
+  const promise = enqueueRequest(task).finally(() => {
+    pendingRequests.delete(requestKey)
+  })
+
+  pendingRequests.set(requestKey, promise)
+  return promise
 }
 
-//请求拦截       
-service.interceptors.request.use(config=>{
-    //添加请求头
-    config.headers={
-        'Content-Type': 'application/x-www-form-urlencoded',
-        //  "Authorization":'1231312'
+function post(url, data = {}) {
+  return request('post', url, data)
+}
+
+function get(url, params = {}) {
+  return request('get', url, params)
+}
+
+service.interceptors.request.use(
+  (config) => {
+    config.headers = {
+      ...config.headers,
+      'Content-Type': 'application/x-www-form-urlencoded',
     }
     return config
-},err=>{
-    return Promise.reject(err)
-})
+  },
+  (error) => Promise.reject(error),
+)
 
-//添加响应拦截
-service.interceptors.response.use(res=>{
-    return res.data
-},err=>{
-    return err
-})
+service.interceptors.response.use(
+  (response) => response.data,
+  (error) => Promise.reject(error),
+)
 
-export default{
-    post,
-    get,
-    waresofeLocation
+export default {
+  post,
+  get,
+  waresofeLocation,
 }

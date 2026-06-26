@@ -5,17 +5,19 @@
   "author": "",
   "private": true,
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host 127.0.0.1",
+    "dev:host": "vite --host 0.0.0.0",
     "start": "yarn dev",
+    "clean": "node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\"",
     "build": "vite build",
-    "preview": "vite preview"
+    "rebuild": "yarn clean && yarn build",
+    "preview": "vite preview --host 127.0.0.1",
+    "preview:host": "vite preview --host 0.0.0.0"
   },
   "dependencies": {
-    "@vuemap/vue-amap": "^2.1.15",
     "axios": "^1.10.0",
     "element-plus": "^2.13.6",
     "dayjs": "^1.11.13",
-    "mitt": "^3.0.1",
     "pinia": "^3.0.3",
     "pinia-plugin-persistedstate": "^4.5.0",
     "vue": "^3.5.35",

@@ -99,6 +99,7 @@ const duration = computed(() => {
 
 const trackStyle = computed(() => ({
   "--auto-scroll-duration": `${duration.value}s`,
+  animationPlayState: isPaused.value ? "paused" : "running",
 }));
 
 function refreshSize() {
@@ -196,7 +197,7 @@ onBeforeUnmount(() => {
   animation: auto-scroll-right var(--auto-scroll-duration) linear infinite;
 }
 
-.auto-scroll__track--paused {
+.auto-scroll__track--active.auto-scroll__track--paused {
   animation-play-state: paused;
 }
 

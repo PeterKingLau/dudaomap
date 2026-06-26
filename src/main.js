@@ -32,24 +32,7 @@ import 'element-plus/es/components/table/style/css'
 import 'element-plus/es/components/table-column/style/css'
 
 import '../src/assets/css/base.css'
-import VueAMap, { initAMapApiLoader } from '@vuemap/vue-amap'
-import '@vuemap/vue-amap/dist/style.css'
 import AutoScroll from './components/AutoScroll.vue'
-
-initAMapApiLoader({
-  key: 'c46e74d65e04cee731f8d48c7fcfcffa',
-  plugin: [
-    'AMap.Autocomplete',
-    'AMap.PlaceSearch',
-    'AMap.Scale',
-    'AMap.OverView',
-    'AMap.ToolBar',
-    'AMap.MapType',
-    'AMap.PolyEditor',
-    'AMap.CircleEditor',
-  ],
-  version: '2.0',
-})
 
 const app = createApp(App)
 const pinia = createPinia()
@@ -58,7 +41,6 @@ pinia.use(piniaPluginPersistedstate)
 
 app.use(router)
 app.use(pinia)
-app.use(VueAMap)
 ;[
   ElButton,
   ElDatePicker,

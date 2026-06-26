@@ -1,6 +1,6 @@
-import { defineStore } from 'pinia'
+import { defineStore } from "pinia";
 
-export const useMarkerStore = defineStore('marker', {
+export const useMarkerStore = defineStore("marker", {
   state: () => ({
     markerMess: {},
   }),
@@ -9,8 +9,8 @@ export const useMarkerStore = defineStore('marker', {
   },
   actions: {
     updatemarkerMess(data) {
-      this.markerMess = data
+      this.markerMess = data;
     },
   },
   persist: true,
-})
+});
