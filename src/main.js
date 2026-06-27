@@ -6,6 +6,7 @@ import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 import {
   ElButton,
+  ElCascader,
   ElDatePicker,
   ElDialog,
   ElForm,
@@ -19,6 +20,7 @@ import {
   ElTableColumn,
 } from 'element-plus'
 import 'element-plus/es/components/button/style/css'
+import 'element-plus/es/components/cascader/style/css'
 import 'element-plus/es/components/date-picker/style/css'
 import 'element-plus/es/components/dialog/style/css'
 import 'element-plus/es/components/form/style/css'
@@ -43,6 +45,7 @@ app.use(router)
 app.use(pinia)
 ;[
   ElButton,
+  ElCascader,
   ElDatePicker,
   ElDialog,
   ElForm,

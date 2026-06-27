@@ -1,8 +1,30 @@
 export const OVERVIEW_REGION = "四川";
 
+export const REGION_OPTIONS = [
+  "四川",
+  "涪城",
+  "安州",
+  "广汉",
+  "射洪",
+  "南充",
+  "成华",
+];
+
+export const REGION_CASCADER_OPTIONS = [
+  {
+    label: OVERVIEW_REGION,
+    value: OVERVIEW_REGION,
+    children: REGION_OPTIONS.filter((item) => item !== OVERVIEW_REGION).map(
+      (item) => ({
+        label: item,
+        value: item,
+      }),
+    ),
+  },
+];
+
 export const MAP_CENTERS = {
   四川: [103.7, 30.65],
-  总公司: [103.7, 30.65],
   涪城: [104.679127, 31.467673],
   广汉: [104.28249, 30.97706],
   安州: [104.56735, 31.45475],
@@ -14,7 +36,7 @@ export const MAP_CENTERS = {
 export const DIRECT_REGION_NAMES = ["涪城", "安州", "成华"];
 
 export function isOverviewRegion(region) {
-  return !region || region === OVERVIEW_REGION || region === "总公司";
+  return !region || region === OVERVIEW_REGION;
 }
 
 export function getMapCenter(region) {
